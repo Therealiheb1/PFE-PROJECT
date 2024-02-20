@@ -1,0 +1,87 @@
+<div class="container-fluid">
+  <app-page-title title="Inbox" [breadcrumbItems]="breadCrumbItems"></app-page-title>
+  <div class="row">
+    <div class="col-12">
+      <div class="email-leftbar card">
+       
+        <div class="mail-list mt-4">
+          <a href="javascript: void(0);" class="active"><i class="mdi mdi-email-outline me-2"></i> Inbox <span
+              class="ms-1 float-end">(18)</span></a>
+        
+        </div>
+
+        <ng-template #content let-modal>
+          <div class="modal-header">
+            <h5 class="modal-title" id="composemodalTitle">New Message</h5>
+            <button type="button" class="btn-close" (click)="modal.dismiss('Cross click')" aria-label="Close">
+
+            </button>
+          </div>
+          <div class="modal-body">
+            <form>
+              <div class="mb-3">
+                <input type="email" class="form-control" placeholder="To">
+              </div>
+              <div class="mb-3">
+                <input type="text" class="form-control" placeholder="Subject">
+              </div>
+              <div class="mb-3">
+                <ckeditor [editor]="Editor" data="<p>Content of the editor.</p>"></ckeditor>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" (click)="modal.close('Close click')">Close</button>
+            <button type="button" class="btn btn-primary">Send <i class="fab fa-telegram-plane ms-1"></i></button>
+          </div>
+        </ng-template>
+      </div>
+
+      <div class="email-rightbar mb-3">
+
+        <div class="card">
+          <div class="btn-toolbar p-3" role="toolbar">
+            <div class="btn-group me-2 mb-2 mb-sm-0">
+              
+              <button type="button" (click)="confirm()" class="btn btn-primary"><i
+                  class="far fa-trash-alt"></i></button>
+            </div>
+            
+           
+          </div>
+
+          <ul class="message-list">
+            <li class="unread" *ngFor="let email of emailData | slice:0:15; let i = index; "
+              [ngClass]="{ 'unread': email.unread === true }">
+              <div class="col-mail col-mail-1">
+                <div class="checkbox-wrapper-mail">
+                  <input type="checkbox" id="chk-{{i}}" (change)="selectMail($event,email.id)" />
+                  <label for="chk-{{i}}"></label>
+                </div>
+                <a [routerLink]="['../read',email.id]" class="title">{{email.title}}</a>
+                <span class="star-toggle far fa-star"></span>
+              </div>
+              <div class="col-mail col-mail-2">
+                <a [routerLink]="['../read',email.id]" class="subject">{{email.subject}}</a>
+                <div class="date">{{email.date}}</div>
+              </div>
+            </li>
+          </ul>
+        </div>
+        <div class="row justify-content-md-between align-items-md-center">
+          <div class="col-7">
+            Showing {{startIndex}} - {{endIndex}} of {{totalRecords}}
+          </div> <!-- end col-->
+          <div class="col-5">
+            <div class="text-md-right float-md-end mt-2">
+              <ngb-pagination class="pagination-rounded" [collectionSize]="totalRecords"
+                (pageChange)="onPageChange($event)" [(page)]="page" [pageSize]="pageSize">
+              </ngb-pagination>
+              <!--Pagination-->
+            </div>
+          </div> <!-- end col-->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

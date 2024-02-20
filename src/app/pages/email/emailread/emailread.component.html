@@ -1,0 +1,105 @@
+<div class="container-fluid">
+  <app-page-title title="Read Email" [breadcrumbItems]="breadCrumbItems"></app-page-title>
+
+  <div class="row">
+    <div class="col-12">
+      <div class="email-leftbar card">
+        
+        <div class="mail-list mt-4">
+          <a [routerLink]="['../../inbox']" class="active"><i class="mdi mdi-email-outline me-2"></i> Inbox <span
+              class="ms-1 float-end">(18)</span></a>
+          <a [routerLink]="['../../inbox']"><i class="mdi mdi-star-outline me-2"></i>Starred</a>
+          <a [routerLink]="['../../inbox']"><i class="mdi mdi-trash-can-outline me-2"></i>Trash</a>
+        </div>
+
+        <ng-template #content let-modal>
+          <div class="modal-header">
+            <h5 class="modal-title" id="composemodalTitle">New Message</h5>
+            <button type="button" class="btn-close" (click)="modal.dismiss('Cross click')" aria-label="Close">
+            </button>
+          </div>
+          <div class="modal-body">
+            <form>
+              <div class="mb-3">
+                <input type="email" class="form-control" placeholder="To">
+              </div>
+
+              <div class="mb-3">
+                <input type="text" class="form-control" placeholder="Subject">
+              </div>
+              <div class="mb-3">
+                <!-- Editor -->
+                <ckeditor [editor]="Editor" data="<p>Content of the editor.</p>"></ckeditor>
+              </div>
+
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" (click)="modal.close('Close click')">Close</button>
+            <button type="button" class="btn btn-primary">Send <i class="fab fa-telegram-plane ms-1"></i></button>
+          </div>
+        </ng-template>
+      </div>
+
+      <!-- Right Sidebar -->
+      <div class="email-rightbar mb-3">
+
+        <div class="card">
+          <div class="btn-toolbar p-3" role="toolbar">
+            <div class="btn-group me-2 mb-2 mb-sm-0">
+              <button type="button" class="btn btn-primary"><i class="fa fa-inbox"></i></button>
+              <button type="button" class="btn btn-primary"><i class="fa fa-exclamation-circle"></i></button>
+              <button type="button" class="btn btn-primary"><i class="far fa-trash-alt"></i></button>
+            </div>
+
+          <div class="card-body">
+            <div class="media mb-4">
+              <img class="d-flex me-3 rounded-circle avatar-sm" src="assets/images/users/avatar-2.jpg"
+                alt="Generic placeholder image">
+              <div class="media-body">
+                <h5 class="font-size-14 mt-1">Humberto D. Champion</h5>
+                <small class="text-muted">support@domain.com</small>
+              </div>
+            </div>
+
+            <h4 class="mt-0 font-size-16">{{emailRead[0].title}}</h4>
+
+            <p>Dear Lorem Ipsum,</p>
+            <p>
+              {{emailRead[0].subject}}
+            </p>
+            <p>Sed elementum turpis eu lorem interdum, sed porttitor eros commodo. Nam eu venenatis tortor, id lacinia
+              diam. Sed aliquam in dui et porta. Sed bibendum orci non tincidunt ultrices. Vivamus fringilla, mi lacinia
+              dapibus condimentum, ipsum urna lacinia lacus, vel tincidunt mi nibh sit amet lorem.</p>
+            <p>Sincerly,</p>
+            <hr />
+
+            <div class="row">
+              <div class="col-xl-2 col-6">
+                <div class="card">
+                  <img class="card-img-top img-fluid" src="assets/images/small/img-3.jpg" alt="Card image cap">
+                  <div class="py-2 text-center">
+                    <a href="javascript: void(0);" class="fw-medium" download>Download</a>
+                  </div>
+                </div>
+              </div>
+              <div class="col-xl-2 col-6">
+                <div class="card">
+                  <img class="card-img-top img-fluid" src="assets/images/small/img-4.jpg" alt="Card image cap">
+                  <div class="py-2 text-center">
+                    <a href="javascript: void(0);" class="fw-medium" download>Download</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <a href="javascript: void(0);" class="btn btn-secondary mt-4"><i class="mdi mdi-reply"></i>
+              Reply</a>
+          </div>
+
+        </div>
+      </div>
+      <!-- card -->
+    </div>
+  </div>
+</div>

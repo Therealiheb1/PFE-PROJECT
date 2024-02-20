@@ -1,0 +1,78 @@
+<div class="table-responsive mb-0">
+  <table class="table table-centered table-nowrap">
+    <thead class="table-light">
+      <tr>
+       
+        <th class="align-middle">Order ID</th>
+        <th class="align-middle">Billing Name</th>
+        <th class="align-middle">Date</th>
+        <th class="align-middle">Amount</th>
+        <th class="align-middle">View Details</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let data of transactions">
+        
+        <td>
+          <a href="javascript: void(0);" class="text-body fw-bold">{{data.id}}</a>
+        </td>
+        <td>{{data.name}}</td>
+        <td>{{data.date}}</td>
+        <td>{{data.total}}</td>
+        <td>
+          <!-- Button trigger modal -->
+          <button type="button" class="btn btn-primary btn-sm btn-rounded" (click)="openModal(content)">View
+            Details</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <ng-template #content role="document" let-modal>
+    <div class="modal-header">
+      <h5 class="modal-title mt-0">Order Details</h5>
+      <button type="button" class="btn-close" aria-hidden="true" (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <div class="modal-body">
+      <p class="mb-2">
+        Transaction id:
+        <span class="text-primary">#SK2540</span>
+      </p>
+      <p class="mb-4">
+        From:
+        <span class="text-primary">Neal Matthews</span>
+      </p>
+      <div class="table-responsive">
+        <table class="table table-centered table-nowrap">
+          <thead>
+            <tr>
+              <th scope="col">To</th>
+              <th scope="col">in</th>
+              <th scope="col">Transaction id</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th >
+                <div>
+                  <p>iheb sahbeni (ihebsahbeni00@gmail.com)</p>
+                </div>
+              </th>
+              <td>
+                <div>
+                  <p>07 Oct,2023</p>
+                </div>
+              </td>
+              <td>#SK2540</td>
+            </tr>
+           
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" (click)="modal.close('Close click')">Close</button>
+    </div>
+  </ng-template>
+</div>
+<!-- end table -->

@@ -1,0 +1,186 @@
+<app-loader></app-loader>
+<div class="container-fluid">
+    <!-- start page title -->
+    <div class="row">
+        <div class="col-12">
+            <div class="page-title-box d-flex align-items-center justify-content-between">
+                <h4 class="mb-0 font-size-18">Attijari bank</h4>
+                <div class="page-title-right">
+                    <ol class="breadcrumb m-0">
+                        <li class="breadcrumb-item active">The world is yours</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- end page title -->
+
+    <div class="row">
+        <div class="col-xl-4">
+            <div class="card overflow-hidden">
+                <div class="bg-primary bg-soft">
+                    <div class="row">
+                        <div class="col-7">
+                            <div class="text-primary p-3">
+                                <h5 class="text-primary">Welcome Back !</h5>
+                                
+                            </div>
+                        </div>
+                        <div class="col-5 align-self-end">
+                            <img src="assets/images/profile-img.png" alt="" class="img-fluid">
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body pt-0">
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <div class="avatar-md profile-user-wid mb-4">
+                                <img src="assets/images/users/avatar-1.jpg" alt="" class="img-thumbnail rounded-circle">
+                            </div>
+                       
+                        </div>
+
+                        <div class="col-sm-8">
+                            <div class="pt-4">
+
+                            
+                            </div>
+                            
+                        </div>
+                    </div>
+
+
+                    
+                </div>
+
+
+
+                <!DOCTYPE html>
+                <html lang="en">
+                <head>
+                    <meta charset="UTF-8">
+                    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                    <title>Balance Doughnut Chart</title>
+                    <style>
+                        .doughnut {
+                            width: 200px; 
+                            height: 200px; 
+                            border: 20px solid #b9b6b6; 
+                            border-radius: 50%;
+                            border-bottom: 20px solid transparent; 
+                            position: relative;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center; 
+                            border-radius: 100%;
+                        }
+                
+                        .inner-circle {
+                            width: 160px; 
+                            height: 160px; 
+                            border-radius: 50%;
+                            background-color: #f7f7f7; 
+                            position: absolute;
+                            top: 50%;
+                            left: 50%;
+                            transform: translate(-50%, -50%);
+                            text-align: center;
+                            line-height: 1.8; 
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            font-size: 2rem; 
+                            font-weight: bold; 
+                        }
+                
+                       
+                        .color-indicator {
+                            width: 10px;
+                            height: 10px;
+                            background-color: #007bff; 
+                            margin-right: 5px;
+                            border-radius: 50%;
+                            display: inline-block;
+                        }
+                    </style>
+                </head>
+                <body>
+                    <div class="card">
+                        <div class="card-body" align="center">
+                            <h6 class="card-title mb-4 font-size-18">Your Balance</h6>
+                            
+                                <div class="doughnut">
+                                    <div class="inner-circle">
+                                        <span class="color-indicator"></span> $34,252
+                                    </div>
+                                
+                            </div>
+                        </div>
+                        <button class="btn btn-primary" (click)="openModal()">Make Transaction</button>
+
+                    </div>
+                    <!-- <ng-template >
+                        <div class="modal-header">
+                          <h4 class="modal-title">New Transaction</h4>
+                          <button type="button" class="btn-close" aria-label="Close" (click)="modal.close()"></button>
+                        </div>
+                        <div class="modal-body">
+                          <form (ngSubmit)="submitTransaction(amount.value, recipientId.value)">
+                            <div class="form-group">
+                              <label for="amount">Amount:</label>
+                              <input type="number" class="form-control" id="amount" name="amount" [(ngModel)]="amount" required>
+                            </div>
+                            <div class="form-group">
+                              <label for="recipientId">Recipient ID:</label>
+                              <input type="text" class="form-control" id="recipientId" name="recipientId" [(ngModel)]="recipientId" required>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                          </form>
+                        </div>
+                      </ng-template> -->
+                </body>
+                </html>
+                
+
+            </div>
+           
+        </div>
+        
+        <div class="col-xl-8">
+            
+            
+            <!-- end row -->
+
+            <div class="card">
+                <div class="card-body">
+                    
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h4 class="card-title mb-4">Latest Transaction</h4>
+                                    <app-transaction [transactions]="transactions"></app-transaction> 
+                                    <!-- end table -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                   
+                </div>
+            </div>
+            
+        </div>
+    </div>
+    
+    <!-- end row -->
+
+    <div class="row">
+                
+        
+        
+
+        
+    </div>
+
+     
+</div> 
