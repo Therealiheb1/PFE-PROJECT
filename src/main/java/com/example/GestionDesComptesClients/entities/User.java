@@ -1,13 +1,12 @@
 package com.example.GestionDesComptesClients.entities;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
+import jakarta.persistence.*;
+
 @Entity
+@Table(name = "users")
 public class User{
     @jakarta.persistence.Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(nullable = false, updatable = false)
     private Long Id;
     private String nom;

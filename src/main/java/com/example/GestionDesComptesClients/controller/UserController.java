@@ -1,4 +1,4 @@
-package com.example.GestionDesComptesClients;
+package com.example.GestionDesComptesClients.controller;
 
 import com.example.GestionDesComptesClients.entities.User;
 import com.example.GestionDesComptesClients.service.Userservice;
@@ -10,10 +10,10 @@ import java.util.List;
 @RestController
 @RequestMapping("/user")
 
-public class UserResource {
+public class UserController {
     private final Userservice userservice;
 
-    public UserResource(Userservice userservice) {
+    public UserController(Userservice userservice) {
         this.userservice = userservice;
     }
     @GetMapping("/all")

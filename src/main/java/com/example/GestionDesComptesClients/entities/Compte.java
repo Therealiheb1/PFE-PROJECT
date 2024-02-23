@@ -9,23 +9,22 @@ public abstract class Compte implements Serializable {
     @Id
     @GeneratedValue
     @Column(nullable = false, updatable = false)
-    private String codeCompte;
+    private Long codeCompte;
     private Date dateCreation;
     private double solde;
     private User user;
 
-    public Compte(String codeCompte, Date dateCreation, double solde, User user) {
-        this.codeCompte = codeCompte;
+    public Compte(Date dateCreation, double solde, User user) {
         this.dateCreation = dateCreation;
         this.solde = solde;
         this.user = user;
     }
 
-    public String getCodeCompte() {
+    public Long getCodeCompte() {
         return codeCompte;
     }
 
-    public void setCodeCompte(String codeCompte) {
+    public void setCodeCompte(Long codeCompte) {
         this.codeCompte = codeCompte;
     }
 
