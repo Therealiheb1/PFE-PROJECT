@@ -26,10 +26,9 @@ public class CompteController {
         Compte updatecompte = compteService.updateCompte(compte);
         return new ResponseEntity<>(updatecompte, HttpStatus.OK);
     }
-    @DeleteMapping("/delete/{codecompte}")
+    @DeleteMapping("/delete")
     public ResponseEntity<?> deleteCompte(@PathVariable ("code compte") Long codecompte){
         compteService.deleteCompte(codecompte);
         return new ResponseEntity<>(HttpStatus.OK);
     }
-    
 }

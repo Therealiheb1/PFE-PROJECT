@@ -11,7 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
-import java.util.Optional;
+
 
 @Service
 @Transactional
@@ -31,7 +31,9 @@ public class OperationServiceImpl implements OperationServices {
         Compte compte = compteRepo.findById(codeCompte).orElse(null);
         Versement versement = new Versement(new Date(), montant, compte);
         operationRepo.save(versement);
-        compte.setSolde(compte.getSolde() + montant);
+        if (compte != null) {
+            compte.setSolde(compte.getSolde() + montant);
+        }
         compteRepo.save(compte);
     }
     @Override
@@ -39,11 +41,21 @@ public class OperationServiceImpl implements OperationServices {
         Compte compte = compteRepo.findById(codeCompte).orElse(null);
         Retrait retrait = new Retrait(new Date(), montant, compte);
         operationRepo.save(retrait);
-        compte.setSolde(compte.getSolde() - montant);
-        compteRepo.save(compte);
+        if (compte != null) {
+            compte.setSolde(compte.getSolde() - montant);
+        }
+            compteRepo.save(compte);
+
     }
     @Override
-    public void virement(String codeCompte1, String codeCompte2, double montant) {
+    public void virement(String codeCompte1, String codeCompte2, double montant)  {
+        if (codeCompte1.equals(codeCompte2)){
+            try {
+                throw new Exception("le virement d'un compte vers ce meme compte n'est pas autorisé");
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+        }
         retirer(codeCompte1,montant);
         verser(codeCompte2,montant);
     }

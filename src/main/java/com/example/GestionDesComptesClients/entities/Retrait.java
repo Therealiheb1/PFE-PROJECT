@@ -5,7 +5,6 @@ import jakarta.persistence.Entity;
 import java.util.Date;
 
 @Entity
-
 public class Retrait extends Operation {
     public Retrait() {
         super();

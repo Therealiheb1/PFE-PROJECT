@@ -1,19 +1,27 @@
 package com.example.GestionDesComptesClients.entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.io.Serializable;
 import java.util.Date;
 
+@Setter
+@Getter
 @Entity
+@Table(name = "operation")
 public abstract class Operation implements Serializable {
     @Id
     @GeneratedValue
+    @Column(name ="num_operation" )
     private Long num;
+    @Column(name = "date_operation")
     private Date dateOperation;
+    @Column(name = "montant")
     private double montant;
+    @ManyToOne
+    @JoinColumn
     private Compte compte;
     public Operation(){
         super();
@@ -22,38 +30,6 @@ public abstract class Operation implements Serializable {
     public Operation(Date dateOperation, double montant, Compte compte) {
         this.dateOperation = dateOperation;
         this.montant = montant;
-        this.compte = compte;
-    }
-
-    public Long getNum() {
-        return num;
-    }
-
-    public void setNum(Long num) {
-        this.num = num;
-    }
-
-    public Date getDateOperation() {
-        return dateOperation;
-    }
-
-    public void setDateOperation(Date dateOperation) {
-        this.dateOperation = dateOperation;
-    }
-
-    public double getMontant() {
-        return montant;
-    }
-
-    public void setMontant(double montant) {
-        this.montant = montant;
-    }
-
-    public Compte getCompte() {
-        return compte;
-    }
-
-    public void setCompte(Compte compte) {
         this.compte = compte;
     }
 }
