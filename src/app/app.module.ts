@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { APP_INITIALIZER, NgModule } from '@angular/core';
+import { APP_INITIALIZER, CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { HttpClientModule, HTTP_INTERCEPTORS, HttpClient } from '@angular/common/http';
 
 import { environment } from '../environments/environment';
@@ -26,25 +26,27 @@ import { JwtInterceptor } from './core/helpers/jwt.interceptor';
 import { FakeBackendInterceptor } from './core/helpers/fake-backend';
 
 import { KeycloakAngularModule, KeycloakService } from 'keycloak-angular';
+import { ComptesComponent } from './comptes/comptes.component';
 
 
 
 
-function initializeKeycloak(keycloak: KeycloakService) {
-  return () =>
-    keycloak.init({
-      config: {
-        url: 'http://localhost:8080',
-        realm: 'Client',
-        clientId: 'customer'
-      },
-      initOptions: {
-        onLoad: 'login-required',
-        // silentCheckSsoRedirectUri:
-        //   window.location.origin + '/assets/silent-check-sso.html'
-      }
-    });
-}
+
+// function initializeKeycloak(keycloak: KeycloakService) {
+//   return () =>
+//     keycloak.init({
+//       config: {
+//         url: 'http://localhost:8080',
+//         realm: 'Client_app',
+//         clientId: 'customer'
+//       },
+//       initOptions: {
+//         onLoad: 'login-required',
+//         silentCheckSsoRedirectUri:
+//           window.location.origin + '/assets/silent-check-sso.html'
+//       }
+//     });
+// }
 
 
 
@@ -64,6 +66,8 @@ export function createTranslateLoader(http: HttpClient): any {
   declarations: [
     AppComponent,
     CyptolandingComponent,
+    
+    ComptesComponent,
   ],
   imports: [
     BrowserModule,
@@ -92,17 +96,18 @@ export function createTranslateLoader(http: HttpClient): any {
   
   bootstrap: [AppComponent],
   providers: [
-    {
-      provide: APP_INITIALIZER,
-      useFactory: initializeKeycloak,
-      multi: true,
-      deps: [KeycloakService]
-    },
+    // {
+    //   provide: APP_INITIALIZER,
+    //   useFactory: initializeKeycloak,
+    //   multi: true,
+    //   deps: [KeycloakService]
+    // }, 
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: FakeBackendInterceptor, multi: true },
     // LoaderService,
     // { provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptorService, multi: true },
   ],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class AppModule { }

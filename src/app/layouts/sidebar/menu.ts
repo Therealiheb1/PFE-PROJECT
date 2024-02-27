@@ -15,13 +15,37 @@ export const MENU: MenuItem[] = [
             text: 'MENUITEMS.DASHBOARDS.BADGE',
         },
       
-                label: 'Home page',
-                link: '/dashboard',
+                label: "Page d'acceuil",
+                link: '/comptes',
                 parentId: 2
             
        
         
     },
+    {
+        id: 7,
+        isLayout: true
+    },
+    {
+        id: 8,
+       
+        isTitle: true
+    },
+
+
+    {
+        id: 29,
+        
+        icon: 'bx-envelope',
+       
+              
+                label: 'gérer compte',
+                link: '/dashboard',
+                parentId: 29
+         
+    },
+
+    
     
     
     {
@@ -56,7 +80,7 @@ export const MENU: MenuItem[] = [
     },
      {
         id: 11,
-        label: 'Your informations',
+        label: 'Mes informations',
         icon: 'bx-file',
         link: '/filemanager',
         badge: {

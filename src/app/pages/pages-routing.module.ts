@@ -3,13 +3,16 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { CalendarComponent } from './calendar/calendar.component';
 import { ChatComponent } from './chat/chat.component';
+
 import { DefaultComponent } from './dashboards/default/default.component';
 import { FilemanagerComponent } from './filemanager/filemanager.component';
+import { ComptesComponent } from '../comptes/comptes.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: 'dashboard' },
+  { path: '', redirectTo: 'comptes' },
  
   { path: 'dashboard', component: DefaultComponent },
+  { path: 'comptes', component: ComptesComponent },
   { path: 'calendar', component: CalendarComponent },
   { path: 'chat', component: ChatComponent },
   { path: 'filemanager', component: FilemanagerComponent },
@@ -28,7 +31,9 @@ const routes: Routes = [
   { path: 'tables', loadChildren: () => import('./tables/tables.module').then(m => m.TablesModule) },
   { path: 'icons', loadChildren: () => import('./icons/icons.module').then(m => m.IconsModule) },
   { path: 'charts', loadChildren: () => import('./chart/chart.module').then(m => m.ChartModule) },
-  { path: 'maps', loadChildren: () => import('./maps/maps.module').then(m => m.MapsModule) }
+  { path: 'maps', loadChildren: () => import('./maps/maps.module').then(m => m.MapsModule) },
+  // { path: 'comptes', loadChildren: () => import('./comptes/comptes.module').then(m => m.ComptesModule) },
+
 ];
 
 @NgModule({
