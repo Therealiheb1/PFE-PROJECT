@@ -28,6 +28,9 @@ import { FakeBackendInterceptor } from './core/helpers/fake-backend';
 import { KeycloakAngularModule, KeycloakService } from 'keycloak-angular';
 import { ComptesComponent } from './comptes/comptes.component';
 
+import { NgxPaginationModule } from 'ngx-pagination';
+import { AdminPannelComponent } from './admin-pannel/admin-pannel.component';
+import { AddUserComponent } from './add-user/add-user.component';
 
 
 
@@ -37,8 +40,8 @@ import { ComptesComponent } from './comptes/comptes.component';
 //     keycloak.init({
 //       config: {
 //         url: 'http://localhost:8080',
-//         realm: 'Client_app',
-//         clientId: 'customer'
+//         realm: 'Client-app',
+//         clientId: 'cust'
 //       },
 //       initOptions: {
 //         onLoad: 'login-required',
@@ -66,15 +69,20 @@ export function createTranslateLoader(http: HttpClient): any {
   declarations: [
     AppComponent,
     CyptolandingComponent,
-    
     ComptesComponent,
+
+    AdminPannelComponent,
+      AddUserComponent,
+    
   ],
   imports: [
+    NgxPaginationModule,
     BrowserModule,
     //error 1
    KeycloakAngularModule,
     BrowserAnimationsModule,
     HttpClientModule,
+    
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
@@ -91,7 +99,8 @@ export function createTranslateLoader(http: HttpClient): any {
     NgbTooltipModule,
     SharedModule,
     ScrollToModule.forRoot(),
-    NgbModule
+    NgbModule,
+    
   ],
   
   bootstrap: [AppComponent],

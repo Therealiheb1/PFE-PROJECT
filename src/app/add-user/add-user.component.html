@@ -1,0 +1,79 @@
+<div class="container-fluid">
+    <div class="d-grid gap-2 d-md-flex ">
+        <button class="btn btn-primary  " > <a routerLink="/Admin" class="nav-link text-white " routerLinkActive="active"> retour</a>  </button>
+       </div>
+    <form action="" method="post" id="f">
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+
+                   
+                    <div class="mb-3 row">
+                        <label for="example-search-input" class="col-md-2 col-form-label">Nom et Prénom</label>
+                        <div class="col-md-10">
+                            <input class="form-control" type="text" placeholder="Nom et Prénom"
+                                id="np">
+                        </div>
+                    </div>
+                    <div class="mb-3 row">
+                        <label for="example-email-input" class="col-md-2 col-form-label">Email</label>
+                        <div class="col-md-10">
+                            <input class="form-control" type="email" placeholder="qwerty@example.com"
+                                id="email">
+                        </div>
+                    </div>
+                   
+                    <div class="mb-3 row">
+                        <label for="example-tel-input" class="col-md-2 col-form-label">Telephone</label>
+                        <div class="col-md-10">
+                            <input class="form-control" type="tel" placeholder="55 000 000" id="numtel">
+                        </div>
+                    </div>
+                    <div class="mb-3 row">
+                        <label for="pass" class="col-md-2 col-form-label">mot de passe</label>
+                        <div class="col-md-10">
+                            <input class="form-control" type="password" placeholder="hunter2" id="pass">
+                        </div>
+                    </div>
+                    <div class="mb-3 row">
+                        <label for="CIN" class="col-md-2 col-form-label">CIN</label>
+                        <div class="col-md-10">
+                            <input class="form-control" type="number" placeholder="12345678" id="CIN">
+                        </div>
+                    </div>
+                   
+
+                    
+                    <div class="mb-3 row">
+                        <label class="col-md-2 col-form-label">agence</label>
+                        <div class="col-md-10">
+                            <select class="form-select">
+                                <option>Select</option>
+                                <option>Tunis</option>
+                                <option>Manouba</option>
+                                <option>bardo</option>
+                                <option>ariena</option>
+                                <option>ben arous</option>
+                            </select>
+                        </div>
+                    </div>
+                   
+                </div>
+                
+            </div>
+            
+        </div> <!-- end col -->
+    
+    </div>
+   
+    <!-- end row -->
+    </form>
+    <div class="d-grid gap-2 col-6 mx-auto">
+    <button class="btn btn-primary" type="submit" form="f" value="Submit">Ajouter</button>
+</div>  
+<br>
+<!-- <div class="d-grid gap-2 col-6 mx-auto">
+    <button class="btn btn-primary pull-right " > <a routerLink="/adduser" class="nav-link text-white" routerLinkActive="active"> </a>  </button>
+</div>   -->
+</div> <!-- container-fluid -->

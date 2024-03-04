@@ -38,6 +38,7 @@ import { ChatComponent } from './chat/chat.component';
 
 import { FilemanagerComponent } from './filemanager/filemanager.component';
 
+
 FullCalendarModule.registerPlugins([ // register FullCalendar plugins
   dayGridPlugin,
   interactionPlugin,
@@ -45,8 +46,9 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
 ]);
 
 @NgModule({
-  declarations: [CalendarComponent, ChatComponent, FilemanagerComponent],
+  declarations: [CalendarComponent, ChatComponent,  FilemanagerComponent],
   imports: [
+    
     CommonModule,
     FormsModule,
     NgbDropdownModule,
