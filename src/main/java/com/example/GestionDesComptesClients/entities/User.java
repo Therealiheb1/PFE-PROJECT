@@ -25,6 +25,6 @@ public class User{
     private String email;
     @Column(name = "numero")
     private String numero;
-    @Column(name = "code", nullable = false, updatable = false)
-    private String userCode;
+    @Column(name = "password")
+    private String password;
 }

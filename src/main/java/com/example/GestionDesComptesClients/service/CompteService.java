@@ -18,8 +18,5 @@ public class CompteService {
     public Compte updateCompte(Compte compte) {
         return compterepo.save(compte);
     }
-
-    public void deleteCompte(Long codecompte) {
-    }
 }
 

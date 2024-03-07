@@ -23,9 +23,6 @@ public abstract class Operation implements Serializable {
     @ManyToOne
     @JoinColumn
     private Compte compte;
-    public Operation(){
-        super();
-    }
 
     public Operation(Date dateOperation, double montant, Compte compte) {
         this.dateOperation = dateOperation;

@@ -9,9 +9,7 @@ import com.example.GestionDesComptesClients.service.OperationServices;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.Date;
-
 
 @Service
 @Transactional
@@ -34,6 +32,7 @@ public class OperationServiceImpl implements OperationServices {
         if (compte != null) {
             compte.setSolde(compte.getSolde() + montant);
         }
+        assert compte != null;
         compteRepo.save(compte);
     }
     @Override
@@ -44,8 +43,8 @@ public class OperationServiceImpl implements OperationServices {
         if (compte != null) {
             compte.setSolde(compte.getSolde() - montant);
         }
-            compteRepo.save(compte);
-
+        assert compte != null;
+        compteRepo.save(compte);
     }
     @Override
     public void virement(String codeCompte1, String codeCompte2, double montant)  {
