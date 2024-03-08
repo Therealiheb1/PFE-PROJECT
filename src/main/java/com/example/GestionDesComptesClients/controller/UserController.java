@@ -17,8 +17,6 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/user")
-@PreAuthorize("Keycloak")
-
 public class UserController {
     @Autowired
     KeycloakSecurityUtil keycloakSecurityUtil;
