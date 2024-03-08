@@ -31,6 +31,7 @@ import { ComptesComponent } from './comptes/comptes.component';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { AdminPannelComponent } from './admin-pannel/admin-pannel.component';
 import { AddUserComponent } from './add-user/add-user.component';
+import { initializeKeycloak } from './pages/utility/app.init';
 
 
 
@@ -105,12 +106,12 @@ export function createTranslateLoader(http: HttpClient): any {
   
   bootstrap: [AppComponent],
   providers: [
-    // {
-    //   provide: APP_INITIALIZER,
-    //   useFactory: initializeKeycloak,
-    //   multi: true,
-    //   deps: [KeycloakService]
-    // }, 
+    {
+      provide: APP_INITIALIZER,
+      useFactory: initializeKeycloak,
+      multi: true,
+      deps: [KeycloakService]
+    }, 
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: FakeBackendInterceptor, multi: true },

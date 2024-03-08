@@ -1,7 +1,8 @@
 <div class="container-fluid">
     <div class="d-grid gap-2 d-md-flex ">
-        <button class="btn btn-primary  " > <a routerLink="/Admin" class="nav-link text-white " routerLinkActive="active"> retour</a>  </button>
+        <button class="btn btn-primary  " > <a routerLink="/Admin" class="nav-link text-white bx bx-left-arrow-alt" routerLinkActive="active"> retour</a>  </button>
        </div>
+       <br>
     <form action="" method="post" id="f">
     <div class="row">
         <div class="col-12">
@@ -48,16 +49,13 @@
                     <div class="mb-3 row">
                         <label class="col-md-2 col-form-label">agence</label>
                         <div class="col-md-10">
-                            <select class="form-select">
-                                <option>Select</option>
-                                <option>Tunis</option>
-                                <option>Manouba</option>
-                                <option>bardo</option>
-                                <option>ariena</option>
-                                <option>ben arous</option>
-                            </select>
+                          <select class="form-select">
+                              <option *ngFor="let agency of agencies" [value]="agency">
+                              {{ agency }}
+                            </option>
+                          </select>
                         </div>
-                    </div>
+                      </div>
                    
                 </div>
                 

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { KeycloakService } from 'keycloak-angular';
 
 
 @Component({
@@ -10,7 +11,7 @@ import { Component, OnInit } from '@angular/core';
 	
 export class ComptesComponent implements OnInit {
 
-
+  user = '';
   usersList = [
     { name: 'Hello 1', group: 'ThisType' },
     { name: 'Hello 2', group: 'ThisType' },
@@ -30,15 +31,17 @@ export class ComptesComponent implements OnInit {
 
 
 
-  constructor() {
+  constructor(private keycloakService: KeycloakService) {
    
 
 
   }
-
+  private initializeUserOptions(): void {
+    this.user = this.keycloakService.getUsername();
+  }
   
   ngOnInit(): void {
-    
+    this.initializeUserOptions();
   }
   handlePageChange(e :any){
     // this.page = e;
