@@ -99,68 +99,7 @@ export const MENU: MenuItem[] = [
         isTitle: true
     },  
   
-    {
-        id: 57,
-        label: 'MENUITEMS.AUTHENTICATION.TEXT',
-        icon: 'bx-user-circle',
-        badge: {
-            variant: 'success',
-            text: 'MENUITEMS.AUTHENTICATION.BADGE',
-        },
-        subItems: [
-            {
-                id: 58,
-                label: 'MENUITEMS.AUTHENTICATION.LIST.LOGIN',
-                link: '/account/login',
-                parentId: 57
-            },
-           
-            {
-                id: 60,
-                label: 'MENUITEMS.AUTHENTICATION.LIST.REGISTER',
-                link: '/account/signup',
-                parentId: 57
-            },
-            
-            {
-                id: 62,
-                label: 'MENUITEMS.AUTHENTICATION.LIST.RECOVERPWD',
-                link: '/account/reset-password',
-                parentId: 57
-            },
-           
-            {
-                id: 66,
-                label: 'MENUITEMS.AUTHENTICATION.LIST.CONFIRMMAIL',
-                link: '/pages/confirm-mail',
-                parentId: 57
-            },
-            
-            {
-                id: 68,
-                label: 'MENUITEMS.AUTHENTICATION.LIST.EMAILVERIFICATION',
-                link: '/pages/email-verification',
-                parentId: 57
-            },
-           
-            {
-                id: 70,
-                label: 'MENUITEMS.AUTHENTICATION.LIST.TWOSTEPVERIFICATION',
-                link: '/pages/two-step-verification',
-                parentId: 57
-            },
-          
-        ]
-    },
-    {
-        id: 7,
-        isLayout: true
-    },
-    {
-        id: 8,
-       
-        isTitle: true
-    },
+   
     {
         id: 72,
         

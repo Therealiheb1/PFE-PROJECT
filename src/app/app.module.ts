@@ -36,6 +36,7 @@ import { initializeKeycloak } from './pages/utility/app.init';
 
 
 
+
 // function initializeKeycloak(keycloak: KeycloakService) {
 //   return () =>
 //     keycloak.init({
@@ -106,12 +107,12 @@ export function createTranslateLoader(http: HttpClient): any {
   
   bootstrap: [AppComponent],
   providers: [
-    {
-      provide: APP_INITIALIZER,
-      useFactory: initializeKeycloak,
-      multi: true,
-      deps: [KeycloakService]
-    }, 
+    // {
+    //   provide: APP_INITIALIZER,
+    //   useFactory: initializeKeycloak,
+    //   multi: true,
+    //   deps: [KeycloakService]
+    // }, 
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: FakeBackendInterceptor, multi: true },
