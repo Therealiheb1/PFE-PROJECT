@@ -34,9 +34,9 @@ public class UserController {
         return mapUsers(userRepresentations);
     }
     @GetMapping(value = "/users/{Id}")
-    public User getUser(@PathVariable("id") String id){
+    public User getUser(@PathVariable("id") Long id){
         Keycloak keycloak = keycloakSecurityUtil.getKeycloakInstance();
-        return mapUser(keycloak.realm(realm).users().get(id).toRepresentation());
+        return mapUser(keycloak.realm(realm).users().get(String.valueOf(id)).toRepresentation());
     }
     @PostMapping("/add")
     @RequestMapping("/user")

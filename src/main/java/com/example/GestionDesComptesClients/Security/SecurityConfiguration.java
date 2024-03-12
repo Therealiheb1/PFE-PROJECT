@@ -31,7 +31,6 @@ import java.util.stream.Collectors;
 @KeycloakConfiguration
 
 public class SecurityConfiguration {
-    private String[] allowedRoles = {"view-realm", "realm-admin"};
     private static final String GROUPS = "groups";
     private static final String REALM_ACCESS_CLAIM = "realm_access";
     private static final String ROLES_CLAIM = "roles";
@@ -56,7 +55,7 @@ public class SecurityConfiguration {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.csrf(AbstractHttpConfigurer::disable);
         http.authorizeHttpRequests(authorize -> authorize.requestMatchers(new AntPathRequestMatcher("/users"))
-               .hasAnyRole(allowedRoles)
+               .hasAnyRole()
                 .anyRequest().authenticated()
         );
         http.oauth2ResourceServer(t ->
@@ -99,6 +98,4 @@ public class SecurityConfiguration {
             Collection<GrantedAuthority> generateAuthoritiesFromClaim(Collection<String> roles){
         return roles.stream().map(role -> new SimpleGrantedAuthority("ROLE_" + role)).collect(Collectors.toList());
             }
-
-
 }

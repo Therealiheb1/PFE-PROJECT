@@ -20,7 +20,6 @@ public class CompteController {
         Compte newcompte = compteService.addcompte(compte);
         return new ResponseEntity<>(newcompte, HttpStatus.CREATED);
     }
-
     @PutMapping("/update")
     public ResponseEntity<Compte> updatecompte(@RequestBody Compte compte){
         Compte updatecompte = compteService.updateCompte(compte);
