@@ -16,14 +16,12 @@ import { ExtrapagesModule } from './extrapages/extrapages.module';
 import { LayoutsModule } from './layouts/layouts.module';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { initFirebaseBackend } from './authUtils';
+// import { initFirebaseBackend } from './authUtils';
 import { CyptolandingComponent } from './cyptolanding/cyptolanding.component';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
-import { ErrorInterceptor } from './core/helpers/error.interceptor';
-import { JwtInterceptor } from './core/helpers/jwt.interceptor';
-import { FakeBackendInterceptor } from './core/helpers/fake-backend';
+
 
 import { KeycloakAngularModule, KeycloakService } from 'keycloak-angular';
 import { ComptesComponent } from './comptes/comptes.component';
@@ -31,37 +29,40 @@ import { ComptesComponent } from './comptes/comptes.component';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { AdminPannelComponent } from './admin-pannel/admin-pannel.component';
 import { AddUserComponent } from './add-user/add-user.component';
-import { initializeKeycloak } from './pages/utility/app.init';
+import { PromiseType } from 'protractor/built/plugins';
+// import { initializeKeycloak } from './pages/utility/app.init';
 
 
 
 
 
-// function initializeKeycloak(keycloak: KeycloakService) {
-//   return () =>
-//     keycloak.init({
-//       config: {
-//         url: 'http://localhost:8080',
-//         realm: 'Client-app',
-//         clientId: 'cust'
-//       },
-//       initOptions: {
-//         onLoad: 'login-required',
-//         silentCheckSsoRedirectUri:
-//           window.location.origin + '/assets/silent-check-sso.html'
-//       }
-//     });
-// }
+function initializeKeycloak(keycloak: KeycloakService) {
+  return () =>
+    keycloak.init({
+      config: {
+        url: 'http://localhost:8080',
+        realm: 'ClientRealm',
+        clientId: 'CastApp'
+      },
+      loadUserProfileAtStartUp: true,
+      initOptions: {
+        onLoad: 'login-required',
+        redirectUri: 'http://localhost:4200/',
+        promiseType:'native'
 
-
-
-
-if (environment.defaultauth === 'firebase') {
-  initFirebaseBackend(environment.firebaseConfig);
-} else {
-  // tslint:disable-next-line: no-unused-expression
-  FakeBackendInterceptor;
+      }
+    });
 }
+
+
+
+
+// if (environment.defaultauth === 'firebase') {
+//   initFirebaseBackend(environment.firebaseConfig);
+// } else {
+//   // tslint:disable-next-line: no-unused-expression
+//   FakeBackendInterceptor;
+// }
 
 export function createTranslateLoader(http: HttpClient): any {
   return new TranslateHttpLoader(http, 'assets/i18n/', '.json');
@@ -75,6 +76,7 @@ export function createTranslateLoader(http: HttpClient): any {
 
     AdminPannelComponent,
       AddUserComponent,
+      
     
   ],
   imports: [
@@ -113,9 +115,9 @@ export function createTranslateLoader(http: HttpClient): any {
     //   multi: true,
     //   deps: [KeycloakService]
     // }, 
-    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
-    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
-    { provide: HTTP_INTERCEPTORS, useClass: FakeBackendInterceptor, multi: true },
+    // { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+    // { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+    // { provide: HTTP_INTERCEPTORS, useClass: FakeBackendInterceptor, multi: true },
     // LoaderService,
     // { provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptorService, multi: true },
   ],

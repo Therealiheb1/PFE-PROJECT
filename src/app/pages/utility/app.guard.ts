@@ -24,8 +24,8 @@ export class AuthGuard extends KeycloakAuthGuard {
     // Force the user to log in if currently unauthenticated.
     if (!this.authenticated) {
       await this.keycloak.login({
-        redirectUri: window.location.origin + state.url,
-      });
+        redirectUri: 'http://localhost:4200'
+      }); 
     }
 
     // Get the roles required from the route.
@@ -39,11 +39,11 @@ export class AuthGuard extends KeycloakAuthGuard {
     // Allow the user to proceed if all the required roles are present.
     if (requiredRoles.every((role) => this.roles.includes(role))) {
       return true;
-    } else {
-      // redirect to error page if the user doesn't have the nessecairy  role to access
-      // we will define this routes in a bit
-      this.router.navigate(['access-denied']);
-      return false;
+    // } else {
+    //   // redirect to error page if the user doesn't have the nessecairy  role to access
+    //   // we will define this routes in a bit
+    //   this.router.navigate(['access-denied']);
+    //   return false;
     }
   }
 }

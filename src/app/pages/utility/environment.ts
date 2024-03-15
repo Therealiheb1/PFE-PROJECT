@@ -1,11 +1,10 @@
 export const environment = {
     production: false,
-    serverUrl: '/api',
+    serverUrl: '/api/key',
     keycloak: {
    
-      issuer: 'http://localhost:8080/auth/',
-      // Realm
-      realm: 'Client-app',
-      clientId: 'cust',
+      url: 'http://localhost:8080',
+      realm: 'ClientRealm',
+      clientId: 'CastApp'
     },
-  };
+  }; 

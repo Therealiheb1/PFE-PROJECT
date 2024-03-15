@@ -7,7 +7,7 @@ export function initializeKeycloak(keycloak: KeycloakService): () => Promise<any
       try {
         await keycloak.init({
           config: {
-            url: environment.keycloak.issuer,
+            url: environment.keycloak.url,
             realm: environment.keycloak.realm,
             clientId: environment.keycloak.clientId,
           },
@@ -20,7 +20,7 @@ export function initializeKeycloak(keycloak: KeycloakService): () => Promise<any
       
             onLoad: 'login-required',
             checkLoginIframe: true,
-            
+            redirectUri: 'http://localhost:4200/comptes'
           },
           // By default the keycloak-angular library add Authorization: Bearer TOKEN to all http requests
           // Then to exclude a list of URLs that should not have the authorization header we need to provide  them here.
@@ -28,7 +28,7 @@ export function initializeKeycloak(keycloak: KeycloakService): () => Promise<any
         });
         resolve(resolve);
       } catch (error) {
-        reject(error);
+        reject(error); 
       }
     });
   };

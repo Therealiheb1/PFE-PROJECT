@@ -24,6 +24,12 @@
                                 id="email">
                         </div>
                     </div>
+                    <div class="mb-3 row">
+                        <label for="CIN" class="col-md-2 col-form-label">CIN</label>
+                        <div class="col-md-10">
+                            <input class="form-control" type="number" placeholder="12345678" id="CIN">
+                        </div>
+                    </div>
                    
                     <div class="mb-3 row">
                         <label for="example-tel-input" class="col-md-2 col-form-label">Telephone</label>
@@ -32,22 +38,26 @@
                         </div>
                     </div>
                     <div class="mb-3 row">
-                        <label for="pass" class="col-md-2 col-form-label">mot de passe</label>
+                        <label for="pass" class="col-md-2 col-form-label">Age</label>
                         <div class="col-md-10">
-                            <input class="form-control" type="password" placeholder="hunter2" id="pass">
+                            <input class="form-control" type="number" placeholder="age" id="age">
                         </div>
+                       
+                   </div>
+                   <div class="mb-3 row">
+                    <label class="col-md-2 col-form-label">Sexe</label>
+                    <div class="col-md-10">
+                    <select class="form-select" >
+                        <option *ngFor="let sexe of sexe" [value]="sexe">
+                        {{ sexe }}
+                        </option>
+                    </select>
                     </div>
-                    <div class="mb-3 row">
-                        <label for="CIN" class="col-md-2 col-form-label">CIN</label>
-                        <div class="col-md-10">
-                            <input class="form-control" type="number" placeholder="12345678" id="CIN">
-                        </div>
-                    </div>
-                   
-
+                </div>
+                       
                     
                     <div class="mb-3 row">
-                        <label class="col-md-2 col-form-label">agence</label>
+                        <label class="col-md-2 col-form-label">Agence</label>
                         <div class="col-md-10">
                           <select class="form-select">
                               <option *ngFor="let agency of agencies" [value]="agency">
@@ -55,15 +65,16 @@
                             </option>
                           </select>
                         </div>
-                      </div>
+                    </div>
                    
-                </div>
+                
                 
             </div>
             
         </div> <!-- end col -->
     
     </div>
+</div>
    
     <!-- end row -->
     </form>

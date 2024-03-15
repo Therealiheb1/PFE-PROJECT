@@ -12,15 +12,7 @@ import { KeycloakService } from 'keycloak-angular';
 export class ComptesComponent implements OnInit {
 
   user = '';
-  usersList = [
-    { name: 'Hello 1', group: 'ThisType' },
-    { name: 'Hello 2', group: 'ThisType' },
-    { name: 'Hello 3', group: 'ThisType' },
-    { name: 'Hello 4', group: 'ThisType' },
-    { name: 'Hello 5', group: 'ThisType' },
-    { name: 'Hello 6', group: 'ThisType' },
-    { name: 'Hello 7', group: 'ThisType' },
-  ];
+  usersList = [];
 
 
   pages:number;

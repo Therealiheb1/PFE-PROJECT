@@ -13,7 +13,7 @@ export class CustomerComponent implements OnInit {
   constructor(private http: HttpClient) {}
 
   ngOnInit(): void {
-    this.http.get(`${environment.serverUrl}/manager`).subscribe((data: any) => {
+    this.http.get(`${environment.serverUrl}/userInfo2`).subscribe((data: any) => {
       this.message = data.message;
     });
   }
