@@ -1,7 +1,5 @@
 package com.example.GestionDesComptesClients.Security;
 
-
-
 import com.example.GestionDesComptesClients.entities.User;
 import com.example.GestionDesComptesClients.service.Userservice;
 import jakarta.servlet.FilterChain;
@@ -32,19 +30,15 @@ public class JwtUserSyncFilter extends OncePerRequestFilter {
             String lastname = String.valueOf(token.getTokenAttributes().get("family_name"));
             String email = String.valueOf(token.getTokenAttributes().get("email"));
 
-
             User user = User.builder()
-                    .nom(firstname)
-                    .prenom(lastname)
+                    .nom_prenom(firstname)
                     .email(email)
-
                     .build();
 
             userService.syncUser(user);
         } catch (Exception e) {
             throw new IllegalArgumentException("Unable to auth user");
         }
-
         filterChain.doFilter(request, response);
     }
 

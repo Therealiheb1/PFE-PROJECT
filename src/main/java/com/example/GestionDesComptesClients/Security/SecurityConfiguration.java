@@ -31,7 +31,7 @@ import java.util.stream.Collectors;
 @KeycloakConfiguration
 
 public class SecurityConfiguration {
-    private String[] allowedRoles = {"view-realm", "realm-admin"};
+    private String[] allowedRoles = {"default-roles"};
     private static final String GROUPS = "groups";
     private static final String REALM_ACCESS_CLAIM = "realm_access";
     private static final String ROLES_CLAIM = "roles";
@@ -99,6 +99,4 @@ public class SecurityConfiguration {
             Collection<GrantedAuthority> generateAuthoritiesFromClaim(Collection<String> roles){
         return roles.stream().map(role -> new SimpleGrantedAuthority("ROLE_" + role)).collect(Collectors.toList());
             }
-
-
 }

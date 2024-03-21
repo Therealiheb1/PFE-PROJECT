@@ -9,20 +9,27 @@ import lombok.*;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "users")
+@Table(name = "CustomersTable")
 public class User{
     @jakarta.persistence.Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "user_id", nullable = false, updatable = false)
+    @Column(name = "id", nullable = false, updatable = false)
     private Long Id;
-    @Column(name = "nom")
-    private String nom;
-    @Column(name = "prenom")
-    private String prenom;
+    @Column(name = "np")
+    private String nom_prenom;
+
     @Column(name = "email")
     private String email;
-    @Column(name = "numero")
-    private String numero;
-    @Column(name = "password")
-    private String password;
+    @Column(name = "cin")
+    private Integer cin;
+    @Column(name = "tel")
+    private Integer telphone;
+    @Column(name = "age")
+    private Integer age;
+
+    @Column(name = "sexe")
+    private String sexe;
+    @Column(name = "agence")
+    private Integer agence;
+    
 }
