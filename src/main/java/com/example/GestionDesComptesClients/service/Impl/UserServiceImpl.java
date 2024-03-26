@@ -22,8 +22,9 @@ public class UserServiceImpl implements Userservice {
         JwtAuthenticationToken token = (JwtAuthenticationToken) SecurityContextHolder.getContext().getAuthentication();
 
         String email = String.valueOf(token.getTokenAttributes().get("email"));
-
-        return userrepo.findByEmail(email);
+        System.out.println("emaill      is ::   " + String.valueOf(token.getTokenAttributes()));
+        return  null;
+        //return userrepo.findByEmail(email);
     }
 
     @Override
@@ -37,7 +38,7 @@ public class UserServiceImpl implements Userservice {
 
         if (optionalUser != null) {
             saveUser = optionalUser;
-            saveUser.setNom_prenom(user.getNom_prenom());
+            saveUser.setUsername(user.getUsername());
 
         }
 

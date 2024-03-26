@@ -31,7 +31,7 @@ public class JwtUserSyncFilter extends OncePerRequestFilter {
             String email = String.valueOf(token.getTokenAttributes().get("email"));
 
             User user = User.builder()
-                    .nom_prenom(firstname)
+                    .username(firstname)
                     .email(email)
                     .build();
 

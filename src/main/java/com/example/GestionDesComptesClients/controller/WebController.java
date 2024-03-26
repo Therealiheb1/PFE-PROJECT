@@ -15,20 +15,19 @@ import org.springframework.web.bind.annotation.RestController;
 
 
 @RestController
-@RequestMapping("/api/key")
-@CrossOrigin(origins = "http://localhost:4200")
-@RequiredArgsConstructor
+@RequestMapping("/api")
+@CrossOrigin(origins = "*")
 public class WebController {
 
     private static final Logger logger = LoggerFactory.getLogger(WebController.class);
     @Autowired
     private Userservice userService;
 
-            @GetMapping(path = "/userInfo1")
+            @GetMapping(path = "/userInfo")
     public String getUserInfo1() {
-        User user = userService.getLoggedUser();
-
-        return "UserInfo1: " + user.getNom_prenom()  + ", " + user.getEmail();
+       userService.getLoggedUser();
+return "";
+       // return "UserInfo1: " + user.getNom_prenom()  + ", " + user.getEmail();
     }
 
 
