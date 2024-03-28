@@ -11,6 +11,7 @@ public class CompteService {
     public CompteService(CompteRepo compterepo) {
         this.compterepo = compterepo;
     }
+
     public Compte addcompte(Compte compte) {
         return compterepo.save(compte);
     }

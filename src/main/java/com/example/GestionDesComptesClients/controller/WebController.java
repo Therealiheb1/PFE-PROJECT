@@ -1,13 +1,9 @@
 package com.example.GestionDesComptesClients.controller;
 
-import com.example.GestionDesComptesClients.entities.User;
 import com.example.GestionDesComptesClients.service.Userservice;
-
-import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;

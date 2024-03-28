@@ -1,4 +1,4 @@
-package com.example.GestionDesComptesClients.Security;
+ package com.example.GestionDesComptesClients.Security;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -18,10 +18,6 @@ public class KeycloakLogoutHandler implements LogoutHandler {
     private static final Logger logger = LoggerFactory.getLogger(KeycloakLogoutHandler.class);
     @Autowired
     private  RestTemplate restTemplate;
-
-    /* public KeycloakLogoutHandler(RestTemplate restTemplate) {
-        this.restTemplate =restTemplate;
-    } */
 
     @Override
     public void logout(HttpServletRequest request, HttpServletResponse response, Authentication auth) {

@@ -1,9 +1,10 @@
-package com.example.GestionDesComptesClients.Security;
+ package com.example.GestionDesComptesClients.Security;
 
 import org.keycloak.adapters.springsecurity.KeycloakConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.Customizer;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
@@ -28,10 +29,11 @@ import java.util.stream.Collectors;
 
 @Configuration
 @EnableWebSecurity
+@EnableMethodSecurity
 @KeycloakConfiguration
 
 public class SecurityConfiguration {
-    private String[] allowedRoles = {"default-roles"};
+    private final String[] allowedRoles = {"default-roles"};
     private static final String GROUPS = "groups";
     private static final String REALM_ACCESS_CLAIM = "realm_access";
     private static final String ROLES_CLAIM = "roles";
@@ -53,18 +55,19 @@ public class SecurityConfiguration {
         return new HttpSessionEventPublisher();
     }
     @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http.csrf(AbstractHttpConfigurer::disable);
-        http.authorizeHttpRequests(authorize -> authorize.requestMatchers(new AntPathRequestMatcher("/users"))
+    public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
+        httpSecurity.csrf(AbstractHttpConfigurer::disable);
+        httpSecurity.authorizeHttpRequests(authorize -> authorize.requestMatchers(new AntPathRequestMatcher("/user"))
                .hasAnyRole(allowedRoles)
                 .anyRequest().authenticated()
         );
-        http.oauth2ResourceServer(t ->
+        httpSecurity.oauth2ResourceServer(t ->
                 t.jwt(Customizer.withDefaults()));
-        http.oauth2Login(Customizer.withDefaults())
+        httpSecurity.oauth2Login(Customizer.withDefaults())
                 .logout(l -> l.addLogoutHandler(keycloakLogoutHandler).logoutSuccessUrl("/"));
-        http.sessionManagement(t -> t.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
-        return http.build();
+        httpSecurity.sessionManagement(t -> t.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
+        return httpSecurity.build();
+
     }
     @Bean
     public GrantedAuthoritiesMapper userAuthoritiesMapperForKeycloak() {

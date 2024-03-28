@@ -1,4 +1,4 @@
-package com.example.GestionDesComptesClients.Security;
+ package com.example.GestionDesComptesClients.Security;
 
 import com.example.GestionDesComptesClients.entities.User;
 import com.example.GestionDesComptesClients.service.Userservice;
@@ -13,7 +13,6 @@ import org.springframework.web.filter.OncePerRequestFilter;
 
 
 import java.io.IOException;
-
 
 public class JwtUserSyncFilter extends OncePerRequestFilter {
 
@@ -41,5 +40,4 @@ public class JwtUserSyncFilter extends OncePerRequestFilter {
         }
         filterChain.doFilter(request, response);
     }
-
 }

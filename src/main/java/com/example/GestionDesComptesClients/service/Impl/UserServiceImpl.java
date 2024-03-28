@@ -9,7 +9,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
 @Service
 public class UserServiceImpl implements Userservice {
 
@@ -22,7 +21,7 @@ public class UserServiceImpl implements Userservice {
         JwtAuthenticationToken token = (JwtAuthenticationToken) SecurityContextHolder.getContext().getAuthentication();
 
         String email = String.valueOf(token.getTokenAttributes().get("email"));
-        System.out.println("emaill      is ::   " + String.valueOf(token.getTokenAttributes()));
+        System.out.println("email      is ::   " + String.valueOf(token.getTokenAttributes()));
         return  null;
         //return userrepo.findByEmail(email);
     }
