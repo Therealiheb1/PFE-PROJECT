@@ -9,11 +9,13 @@ import org.keycloak.representations.idm.RoleRepresentation;
 import org.keycloak.representations.idm.UserRepresentation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import javax.ws.rs.core.Response;
+import org.springframework.http.ResponseEntity;
 import java.util.List;
 
-//@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "http://localhost:4200")
 @RestController
 @RequestMapping("/user")
 @RequiredArgsConstructor
@@ -29,7 +31,7 @@ public class UserController {
     private String realm;
 
     @PostMapping("/add")
-    public Response createUser(@RequestBody User user) {
+    public ResponseEntity<?> createUser(@RequestBody User user) {
         Keycloak keycloak = keycloakConfiguration.getKeycloakInstance();
         UserRepresentation userRep = userMapper.mapUserRep(user);
         Response response = keycloak.realm(realm).users().create(userRep);
@@ -37,7 +39,7 @@ public class UserController {
             String userId = keycloak.realm(realm).users().search(user.getUsername()).get(0).getId();
             assignRole(userId, user.getRealmRoles());
         }
-        return Response.ok(user).build();
+        return ResponseEntity.ok(user);
     }
     public void assignRole(String userId, List<String> realmRoles) {
         Keycloak keycloak = keycloakConfiguration.getKeycloakInstance();
@@ -46,26 +48,28 @@ public class UserController {
                 .toList();
         keycloak.realm(realm).users().get(userId).roles().realmLevel().add(roleReps);
     }
+
     @PutMapping("/update/{username}")
-    public Response UpdateUser(@PathVariable("username") String username, @RequestBody User user){
+    public ResponseEntity<?> UpdateUser(@PathVariable("username") String username, @RequestBody User user){
         Keycloak keycloak = keycloakConfiguration.getKeycloakInstance();
         List<UserRepresentation> userRepresentations = keycloak.realm(realm).users().search(username);
         if(userRepresentations.isEmpty()){
-            return Response.status(Response.Status.NOT_FOUND).entity("User not found").build();
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found");
         }
         UserRepresentation userUpdate = userMapper.mapUserRepToUpdate(user);
         keycloak.realm(realm).users().get(userRepresentations.get(0).getId()).update(userUpdate);
-        return Response.ok(user).build();
+        return ResponseEntity.ok(user);
     }
+
     @PutMapping("/updatePassword/{username}")
-    public Response updatePassword(@PathVariable("username") String username, @RequestParam("newPassword") String newPassword){
+    public ResponseEntity<?> updatePassword(@PathVariable("username") String username, @RequestParam("newPassword") String newPassword){
         Keycloak keycloak = keycloakConfiguration.getKeycloakInstance();
         List<UserRepresentation> users = keycloak.realm(realm).users().search(username);
         if(users.isEmpty()){
-            return Response.status(Response.Status.NOT_FOUND).entity("User not found").build();
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found");
         }
         UserRepresentation updatePass = userMapper.mapUserRepToUpdatePassword(newPassword);
         keycloak.realm(realm).users().get(users.get(0).getId()).update(updatePass);
-        return Response.ok(updatePass).build();
+        return ResponseEntity.ok(updatePass);
     }
 }
