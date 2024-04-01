@@ -1,5 +1,6 @@
 package com.example.GestionDesComptesClients.controller;
 
+import Exceptions.UserNotFoundException;
 import com.example.GestionDesComptesClients.Security.KeycloakConfiguration;
 import com.example.GestionDesComptesClients.Security.UserMapper;
 import com.example.GestionDesComptesClients.entities.User;
@@ -9,7 +10,6 @@ import org.keycloak.representations.idm.RoleRepresentation;
 import org.keycloak.representations.idm.UserRepresentation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import javax.ws.rs.core.Response;
 import org.springframework.http.ResponseEntity;
@@ -54,7 +54,7 @@ public class UserController {
         Keycloak keycloak = keycloakConfiguration.getKeycloakInstance();
         List<UserRepresentation> userRepresentations = keycloak.realm(realm).users().search(username);
         if(userRepresentations.isEmpty()){
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found");
+            throw new UserNotFoundException("User not found");
         }
         UserRepresentation userUpdate = userMapper.mapUserRepToUpdate(user);
         keycloak.realm(realm).users().get(userRepresentations.get(0).getId()).update(userUpdate);
@@ -66,7 +66,7 @@ public class UserController {
         Keycloak keycloak = keycloakConfiguration.getKeycloakInstance();
         List<UserRepresentation> users = keycloak.realm(realm).users().search(username);
         if(users.isEmpty()){
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found");
+            throw new UserNotFoundException("User not found");
         }
         UserRepresentation updatePass = userMapper.mapUserRepToUpdatePassword(newPassword);
         keycloak.realm(realm).users().get(users.get(0).getId()).update(updatePass);
