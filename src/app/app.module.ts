@@ -30,39 +30,43 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { AdminPannelComponent } from './admin-pannel/admin-pannel.component';
 import { AddUserComponent } from './add-user/add-user.component';
 import { PromiseType } from 'protractor/built/plugins';
+
+
+import { ReactiveFormsModule } from '@angular/forms';
+
+
+import { UsersListComponent } from './users-list/users-list.component';
+import * as Keycloak from 'keycloak-js';
+import { AdmincComponent } from './adminc/adminc.component';
 // import { initializeKeycloak } from './pages/utility/app.init';
 
 
 
 
-
+  
 function initializeKeycloak(keycloak: KeycloakService) {
   return () =>
     keycloak.init({
       config: {
         url: 'http://localhost:8080',
-        realm: 'ClientRealm',
-        clientId: 'CastApp'
+        realm: 'ABT_Realm',
+        clientId: 'ABT_App'
       },
       loadUserProfileAtStartUp: true,
       initOptions: {
         onLoad: 'login-required',
         redirectUri: 'http://localhost:4200/',
-        promiseType:'native'
-
+        promiseType: 'native'
+      }
+    }).then(() => {
+      if (keycloak.isLoggedIn() && keycloak.isUserInRole('Role_admin')) {
+        window.location.href = 'http://localhost:4200/Admin';
       }
     });
 }
 
 
 
-
-// if (environment.defaultauth === 'firebase') {
-//   initFirebaseBackend(environment.firebaseConfig);
-// } else {
-//   // tslint:disable-next-line: no-unused-expression
-//   FakeBackendInterceptor;
-// }
 
 export function createTranslateLoader(http: HttpClient): any {
   return new TranslateHttpLoader(http, 'assets/i18n/', '.json');
@@ -76,12 +80,16 @@ export function createTranslateLoader(http: HttpClient): any {
 
     AdminPannelComponent,
       AddUserComponent,
+
+      UsersListComponent,
+        AdmincComponent,
       
     
   ],
   imports: [
     NgxPaginationModule,
     BrowserModule,
+    ReactiveFormsModule,
     //error 1
    KeycloakAngularModule,
     BrowserAnimationsModule,
@@ -109,12 +117,14 @@ export function createTranslateLoader(http: HttpClient): any {
   
   bootstrap: [AppComponent],
   providers: [
-    // {
-    //   provide: APP_INITIALIZER,
-    //   useFactory: initializeKeycloak,
-    //   multi: true,
-    //   deps: [KeycloakService]
-    // }, 
+    {
+      provide: APP_INITIALIZER,
+      useFactory: initializeKeycloak,
+      multi: true,
+      deps: [KeycloakService]
+    }, 
+
+
     // { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     // { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
     // { provide: HTTP_INTERCEPTORS, useClass: FakeBackendInterceptor, multi: true },

@@ -6,7 +6,7 @@ export class users {
     phonenumber: number;
     age: number;
     sexe: string;
-    adress: string;
+    agence: string;
     
 
 

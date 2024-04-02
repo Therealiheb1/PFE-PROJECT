@@ -1,7 +1,7 @@
 import { KeycloakConfig } from "keycloak-js";
 const keycloakConfig: KeycloakConfig={
     url: 'http://localhost:8080',
-        realm: 'Client-app',
-        clientId: 'cust'
+        realm: 'ABT_Realm',
+        clientId: 'ABT_App'
 };
 export default keycloakConfig;

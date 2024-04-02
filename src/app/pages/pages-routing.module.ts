@@ -13,8 +13,8 @@ import { AddUserComponent } from '../add-user/add-user.component';
 
 
 const routes: Routes = [
-  { path: '', redirectTo: 'comptes' },
- 
+  { path: '', redirectTo: 'Admin' },
+//  admin
   { path: 'dashboard', component: DefaultComponent },
   { path: 'comptes', component: ComptesComponent },
   { path: 'Admin', component: AdminPannelComponent },

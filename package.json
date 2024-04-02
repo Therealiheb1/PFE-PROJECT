@@ -2,6 +2,7 @@
   "name": "skote-angular-vertical",
   "version": "1.0.0",
   "scripts": {
+    "start": "ng serve --proxy-config proxy.conf.json",
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",

@@ -1,0 +1,45 @@
+<form [formGroup]="f" (ngSubmit)="onSubmit()">
+
+    <div class="form-group">
+      <label for="username">Username</label>
+      <input type="text" class="form-control" id="username" formControlName="username" required>
+    </div>
+  
+    <div class="form-group">
+      <label for="firstName">First Name</label>
+      <input type="text" class="form-control" id="firstName" formControlName="firstName" required>
+    </div>
+  
+    <div class="form-group">
+      <label for="lastName">Last Name</label>
+      <input type="text" class="form-control" id="lastName" formControlName="lastName" required>
+    </div>
+  
+    <div class="form-group">
+      <label for="email">Email</label>
+      <input type="email" class="form-control" id="email" formControlName="email" required>
+    </div>
+  
+    <div class="form-group">
+      <label for="password">Password</label>
+      <input type="password" class="form-control" id="password" formControlName="password" required>
+    </div>
+  
+    <div class="mb-3 row">
+      <label class="col-md-2 col-form-label">Realm Roles</label>
+      <div class="col-md-10">
+        <select class="form-select">
+            <option *ngFor="let role of role" [value]="role">
+            {{ role }}
+          </option>
+        </select>
+      </div>
+  </div>
+
+
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </form>
+   <div class="d-grid gap-2 col-6 mx-auto">
+      <button class="btn btn-primary pull-right" > <a routerLink="/adduser" class="nav-link text-white" routerLinkActive="active">return </a>  </button>
+  </div>   
+  

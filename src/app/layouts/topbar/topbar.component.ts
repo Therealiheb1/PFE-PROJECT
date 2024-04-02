@@ -7,6 +7,7 @@ import { environment } from '../../../environments/environment';
 import { CookieService } from 'ngx-cookie-service';
 import { LanguageService } from '../../core/services/language.service';
 import { TranslateService } from '@ngx-translate/core';
+import { KeycloakService } from 'keycloak-angular';
 
 @Component({
   selector: 'app-topbar',
@@ -18,7 +19,8 @@ import { TranslateService } from '@ngx-translate/core';
  * Topbar component
  */
 export class TopbarComponent implements OnInit {
-
+  user = '';
+  usersList = [];
   element;
   cookieValue;
   flagvalue;
@@ -29,7 +31,11 @@ export class TopbarComponent implements OnInit {
               private authFackservice: AuthfakeauthenticationService,
               public languageService: LanguageService,
               public translate: TranslateService,
-              public _cookiesService: CookieService) {
+              public _cookiesService: CookieService, 
+              private keycloakService: KeycloakService,
+              
+              )
+               {
   }
 
   listLang = [
@@ -48,6 +54,7 @@ export class TopbarComponent implements OnInit {
   ngOnInit() {
     this.openMobileMenu = false;
     this.element = document.documentElement;
+    this.initializeUserOptions();
 
     this.cookieValue = this._cookiesService.get('lang');
     const val = this.listLang.filter(x => x.lang === this.cookieValue);
@@ -85,13 +92,18 @@ export class TopbarComponent implements OnInit {
    * Logout the user
    */
   logout() {
-    // if (environment.defaultauth === 'firebase') {
-    //   this.authService.logout();
-    // } else {
-    //   this.authFackservice.logout();
-    // }
-    this.router.navigate(['/account/login']);
+
+    this.router.navigate(['']);
   }
+
+
+  private initializeUserOptions(): void {
+    this.user = this.keycloakService.getUsername();
+  }
+  
+ 
+
+
 
   /**
    * Fullscreen method

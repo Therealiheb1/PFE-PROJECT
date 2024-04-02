@@ -24,9 +24,6 @@ export class ComptesComponent implements OnInit {
 
 
   constructor(private keycloakService: KeycloakService) {
-   
-
-
   }
   private initializeUserOptions(): void {
     this.user = this.keycloakService.getUsername();
