@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.ws.rs.core.Response;
 import org.springframework.http.ResponseEntity;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController
@@ -23,10 +24,8 @@ public class UserController {
 
     @Autowired
     private UserMapper userMapper;
-
     @Autowired
     KeycloakConfiguration keycloakConfiguration;
-
     @Value("${realm}")
     private String realm;
 
@@ -71,5 +70,15 @@ public class UserController {
         UserRepresentation updatePass = userMapper.mapUserRepToUpdatePassword(newPassword);
         keycloak.realm(realm).users().get(users.get(0).getId()).update(updatePass);
         return ResponseEntity.ok(updatePass);
+    }
+
+    @GetMapping("/getUsers")
+    public ResponseEntity<List<User>> getUsers() {
+        Keycloak keycloak = keycloakConfiguration.getKeycloakInstance();
+        List<UserRepresentation> userReps = keycloak.realm(realm).users().list();
+        List<User> users = userReps.stream()
+                .map(userMapper::mapUser)
+                .collect(Collectors.toList());
+        return ResponseEntity.ok(users);
     }
 }
