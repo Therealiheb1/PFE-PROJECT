@@ -26,4 +26,5 @@ public class CompteController {
         Compte updatecompte = compteService.updateCompte(compte);
         return new ResponseEntity<>(updatecompte, HttpStatus.OK);
     }
+
 }

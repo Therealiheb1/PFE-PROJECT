@@ -3,17 +3,20 @@ package com.example.GestionDesComptesClients.entities;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.io.Serializable;
 import java.util.List;
 
-@Setter
-@Getter
+@Data
 @Entity
-@Builder
-@AllArgsConstructor
-@NoArgsConstructor
 @Table(name = "CustomersTable")
-public class User{
-    @jakarta.persistence.Id
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+@ToString
+public class User implements Serializable {
+    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false, updatable = false)
     private Long Id;
@@ -29,4 +32,5 @@ public class User{
     private String password;
     @Column(name = "roles")
     private List<String> realmRoles;
+    private String targetRealm;
 }

@@ -45,4 +45,13 @@ public class UserMapper {
         userRep.setCredentials(creds);
         return userRep;
     }
+
+    public User mapUser(UserRepresentation userRep) {
+        User user = new User();
+        user.setUsername(userRep.getUsername());
+        user.setFirstName(userRep.getFirstName());
+        user.setLastName(userRep.getLastName());
+        user.setEmail(userRep.getEmail());
+        return user;
+    }
 }

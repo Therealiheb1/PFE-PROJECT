@@ -1,5 +1,6 @@
 package com.example.GestionDesComptesClients.entities;
 
+
 import jakarta.persistence.Entity;
 
 import java.util.Date;
