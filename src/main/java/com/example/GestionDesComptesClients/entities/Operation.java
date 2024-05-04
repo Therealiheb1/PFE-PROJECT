@@ -13,6 +13,7 @@ import java.util.Date;
 @Entity
 @Table(name = "operation")
 public abstract class Operation implements Serializable {
+
     @Id
     @GeneratedValue
     @Column(name ="num_operation" )

@@ -22,9 +22,9 @@ public class User implements Serializable {
     private Long Id;
     @Column(name = "username")
     private String username;
-    @Column(name = "firstName")
+    @Column(name = "user_first_Name")
     private String firstName;
-    @Column(name = "lastName")
+    @Column(name = "user_last_Name")
     private String lastName;
     @Column(name = "email")
     private String email;

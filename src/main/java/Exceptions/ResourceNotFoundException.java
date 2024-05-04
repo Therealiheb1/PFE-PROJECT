@@ -1,4 +1,4 @@
-package com.example.GestionDesComptesClients.service;
+package Exceptions;
 
 public class ResourceNotFoundException extends RuntimeException{
 
