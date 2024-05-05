@@ -40,12 +40,12 @@ import java.util.stream.Collectors;
 @EnableMethodSecurity
 @KeycloakConfiguration
 public class KeycloakSecurityConfiguration {
+
     private final static String[] allowedRoles = {"allowedRoles"};
     private static final String GROUPS = "groups";
     private static final String REALM_ACCESS_CLAIM = "realm_access";
     private static final String ROLES_CLAIM = "roles";
     private final KeycloakLogoutHandler keycloakLogoutHandler;
-
 
     public KeycloakSecurityConfiguration(KeycloakLogoutHandler keycloakLogoutHandler) {
         this.keycloakLogoutHandler = keycloakLogoutHandler;
@@ -124,5 +124,4 @@ public class KeycloakSecurityConfiguration {
     Collection<GrantedAuthority> generateAuthoritiesFromClaim(Collection<String> roles) {
         return roles.stream().map(role -> new SimpleGrantedAuthority("ROLE_" + role)).collect(Collectors.toList());
     }
-
 }

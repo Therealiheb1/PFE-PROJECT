@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 import java.time.Period;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.Random;
@@ -20,19 +21,21 @@ import java.util.Random;
 @RestController
 @RequestMapping("/cust")
 public class CustomersController {
+
     @Autowired
     CustomersRepo custrepo;
+
     @Autowired
     CbankRepo cbankRepo;
 
     @Autowired
     NumCompteRepo numCompteRepo;
 
-
     // get all customers
     @GetMapping("/customers")
     public List<customers> getAllcustomers() {
-        return custrepo.findAll();
+
+            return custrepo.findAll();
     }
 
     // create customers rest api
@@ -141,9 +144,9 @@ public class CustomersController {
 
     // Method to generate a new num_compte
     private Long generateRandomNum() {
+
         return new Random().nextLong();
     }
-
 
     @GetMapping("/customers/{customerId}/accounts")
     public ResponseEntity<List<Cbank>> getCustomerAccounts(@PathVariable Long customerId) {
@@ -159,7 +162,56 @@ public class CustomersController {
         if (customerAccounts.isEmpty()) {
             return ResponseEntity.noContent().build(); // No accounts found
         } else {
-            return ResponseEntity.ok(customerAccounts); // Return the list of accounts
+            // Filter active accounts (optional)
+            List<Cbank> activeAccounts = new ArrayList<>();
+            for (Cbank account : customerAccounts) {
+                if (account.getStatue()) {
+                    activeAccounts.add(account);
+                }
+            }
+            // Return all accounts or filtered active accounts
+            return ResponseEntity.ok(activeAccounts.isEmpty() ? customerAccounts : activeAccounts);
         }
     }
+
+    @PostMapping("/archive/{cin}")
+    public ResponseEntity<String> archiveAccount(@PathVariable String cin) {
+        customers customer = custrepo.findBycin(cin);
+        if (customer == null) {
+            return ResponseEntity.notFound().build();
+        }
+
+        List<Cbank> customerAccounts = cbankRepo.findByClient(customer.getId());
+        if (customerAccounts.isEmpty()) {
+            return ResponseEntity.ok("No accounts found for customer with CIN: " + cin);
+        }
+
+        for (Cbank account : customerAccounts) {
+            account.setStatue(false); // Archive all accounts
+            cbankRepo.save(account);
+        }
+
+        return ResponseEntity.ok("Accounts archived successfully for customer with CIN: " + cin);
+    }
+
+    @PostMapping("/unarchive/{cin}")
+    public ResponseEntity<String> unarchiveAccount(@PathVariable String cin) {
+        customers customer = custrepo.findBycin(cin);
+        if (customer == null) {
+            return ResponseEntity.notFound().build();
+        }
+
+        List<Cbank> customerAccounts = cbankRepo.findByClient(customer.getId());
+        if (customerAccounts.isEmpty()) {
+            return ResponseEntity.ok("No accounts found for customer with CIN: " + cin);
+        }
+
+        for (Cbank account : customerAccounts) {
+            account.setStatue(true); // Unarchive all accounts
+            cbankRepo.save(account);
+        }
+
+        return ResponseEntity.ok("Accounts unarchived successfully for customer with CIN: " + cin);
+    }
+
 }
