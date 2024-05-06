@@ -44,8 +44,9 @@ export class ComptesComponent implements OnInit {
   }
 
 }
-
-
+console.log('**************************************************************************************')
+console.log(window.location.href)
+console.log('**************************************************************************************')
 
 
 

@@ -6,7 +6,7 @@ import { LayoutComponent } from './layouts/layout.component';
 import { CyptolandingComponent } from './cyptolanding/cyptolanding.component';
 import { Page404Component } from './extrapages/page404/page404.component';
 import { AccessDeniedComponent } from './access-denied/access-denied.component';
-import { AdminComponent } from './admin/admin.component';
+import { CustDetailsComponent } from './cust-details/cust-details.component';
 import { CustomerComponent } from './customer/customer.component';
 
 const routes: Routes = [
@@ -15,7 +15,9 @@ const routes: Routes = [
   { path: '', component: LayoutComponent, loadChildren: () => import('./pages/pages.module').then(m => m.PagesModule),  },
   { path: 'pages', loadChildren: () => import('./extrapages/extrapages.module').then(m => m.ExtrapagesModule),  },
   { path: 'crypto-ico-landing', component: CyptolandingComponent },
+  {path: 'custdetails/:cin', component: CustDetailsComponent},
   { path: '**', component: Page404Component },
+  
 //  {
 //     path: 'access-denied',
 //     component: AccessDeniedComponent,

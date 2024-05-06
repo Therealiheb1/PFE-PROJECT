@@ -7,3 +7,15 @@ export class User {
     token?: string;
     email: string;
 }
+export class Customers {
+    id: number;
+    firstName?: string;
+    lastName?: string;
+    email: string;
+    cin: number;
+    tel: number;
+    daten : number;
+    sexe: string;
+    agence: string;
+    profession: string;
+}

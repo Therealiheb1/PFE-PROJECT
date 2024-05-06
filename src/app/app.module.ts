@@ -36,17 +36,24 @@ import { ReactiveFormsModule } from '@angular/forms';
 
 
 import { UsersListComponent } from './users-list/users-list.component';
-import * as Keycloak from 'keycloak-js';
+
+
+import { FormsModule } from '@angular/forms';
+
+
+
 import { AdmincComponent } from './adminc/adminc.component';
+import { CustDetailsComponent } from './cust-details/cust-details.component';
+import { AddAccountComponent } from './add-account/add-account.component';
+import { UpdateCustComponent } from './update-cust/update-cust.component';
+
+
 // import { initializeKeycloak } from './pages/utility/app.init';
 
-
-
-
-  
-function initializeKeycloak(keycloak: KeycloakService) {
-  return () =>
-    keycloak.init({
+// Addressing the error:
+export function initializeKeycloak(keycloak: KeycloakService) {
+  return () => {
+    return keycloak.init({
       config: {
         url: 'http://localhost:8080',
         realm: 'ABT_Realm',
@@ -55,18 +62,12 @@ function initializeKeycloak(keycloak: KeycloakService) {
       loadUserProfileAtStartUp: true,
       initOptions: {
         onLoad: 'login-required',
-        redirectUri: 'http://localhost:4200/',
+        redirectUri: 'http://localhost:4201/',
         promiseType: 'native'
       }
-    }).then(() => {
-      if (keycloak.isLoggedIn() && keycloak.isUserInRole('Role_admin')) {
-        window.location.href = 'http://localhost:4200/Admin';
-      }
     });
+  };
 }
-
-
-
 
 export function createTranslateLoader(http: HttpClient): any {
   return new TranslateHttpLoader(http, 'assets/i18n/', '.json');
@@ -79,22 +80,27 @@ export function createTranslateLoader(http: HttpClient): any {
     ComptesComponent,
 
     AdminPannelComponent,
-      AddUserComponent,
+    AddUserComponent,
 
-      UsersListComponent,
-        AdmincComponent,
-      
-    
+    UsersListComponent,
+    AdmincComponent,
+   
+    CustDetailsComponent,
+    AddAccountComponent,
+    UpdateCustComponent,
+   
+
   ],
   imports: [
     NgxPaginationModule,
     BrowserModule,
     ReactiveFormsModule,
-    //error 1
-   KeycloakAngularModule,
+    // **KeycloakAngularModule (already imported)**
+    KeycloakAngularModule, // Import KeycloakAngularModule
     BrowserAnimationsModule,
     HttpClientModule,
-    
+    FormsModule,
+    NgbModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
@@ -112,9 +118,9 @@ export function createTranslateLoader(http: HttpClient): any {
     SharedModule,
     ScrollToModule.forRoot(),
     NgbModule,
-    
+
   ],
-  
+
   bootstrap: [AppComponent],
   providers: [
     {
@@ -122,7 +128,7 @@ export function createTranslateLoader(http: HttpClient): any {
       useFactory: initializeKeycloak,
       multi: true,
       deps: [KeycloakService]
-    }, 
+    },
 
 
     // { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },

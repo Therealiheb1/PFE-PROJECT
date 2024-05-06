@@ -1,6 +1,6 @@
- <div class="container-fluid">
+<div class="container-fluid"> 
     <div class="d-grid gap-2 d-md-flex ">
-        <button class="btn btn-primary  " > <a routerLink="/ComptesC" class="nav-link text-white bx bx-left-arrow-alt" routerLinkActive="active"> retour</a>  </button>
+        <button class="btn custom-btn  " > <a routerLink="/Admin" class="nav-link text-white bx bx-left-arrow-alt" routerLinkActive="active"> retour</a>  </button>
        </div>
        <br>
     <form action="" method="post" id="f">
@@ -11,86 +11,51 @@
 
                    
                     <div class="mb-3 row">
-                        <label for="example-search-input" class="col-md-2 col-form-label">Nom et Prénom</label>
+                        <label for="example-search-input" class="col-md-2 col-form-label">username</label>
                         <div class="col-md-10">
-                            <input class="form-control" type="text" placeholder="Nom et Prénom"
-                                id="np">
+                            <input class="form-control" type="text" placeholder="Username"
+                                id="username">
                         </div>
                     </div>
+
+
+                    <div class="mb-3 row">
+                        <label for="example-tel-input" class="col-md-2 col-form-label">prenom</label>
+                        <div class="col-md-10">
+                            <input class="form-control" type="text" placeholder="prenom" id="firstname">
+                        </div>
+                    </div>
+                    <div class="mb-3 row">
+                        <label for="example-tel-input" class="col-md-2 col-form-label">nom</label>
+                        <div class="col-md-10">
+                            <input class="form-control" type="text" placeholder="nom" id="lastname">
+                        </div>
+                    </div>
+                  
+
                     <div class="mb-3 row">
                         <label for="example-email-input" class="col-md-2 col-form-label">Email</label>
                         <div class="col-md-10">
                             <input class="form-control" type="email" placeholder="qwerty@example.com"
                                 id="email">
                         </div>
-                    </div>
+                    </div>     
                     <div class="mb-3 row">
-                        <label for="CIN" class="col-md-2 col-form-label">CIN</label>
+                        <label for="CIN" class="col-md-2 col-form-label">mot de passe</label>
                         <div class="col-md-10">
-                            <input class="form-control" type="number" placeholder="12345678" id="CIN">
+                            <input class="form-control" type="password" placeholder="12345678" id="CIN">
                         </div>
                     </div>
-                   
-                    <div class="mb-3 row">
-                        <label for="example-tel-input" class="col-md-2 col-form-label">Telephone</label>
-                        <div class="col-md-10">
-                            <input class="form-control" type="tel" placeholder="55 000 000" id="numtel">
-                        </div>
-                    </div>
-                    <div class="mb-3 row">
-                        <label for="pass" class="col-md-2 col-form-label">Age</label>
-                        <div class="col-md-10">
-                            <input class="form-control" type="number" placeholder="age" id="age">
-                        </div>
-                       
-                   </div>
-                   <div class="mb-3 row">
-                    <label class="col-md-2 col-form-label">Sexe</label>
-                    <div class="col-md-10">
-                    <select class="form-select" >
-                        <option *ngFor="let sexe of sexe" [value]="sexe">
-                        {{ sexe }}
-                        </option>
-                    </select>
-                    </div>
-                </div>
-                       
-                    
-                    <div class="mb-3 row">
-                        <label class="col-md-2 col-form-label">Agence</label>
-                        <div class="col-md-10">
-                          <select class="form-select">
-                              <option *ngFor="let agency of agencies" [value]="agency">
-                              {{ agency }}
-                            </option>
-                          </select>
-                        </div>
-                    </div>
-                   
-                    <div class="mb-3 row">
-                        <label for="Profession" class="col-md-2 col-form-label">Profession</label>
-                        <div class="col-md-10">
-                            <input class="form-control" type="text" placeholder="Profession" id="Profession">
-                        </div>
-                       
-                   </div>
-
-                
-            
-                   
-                
             </div>
-            
         </div>  
         <!-- end col -->
-    
     </div>
 </div>
    
     <!-- end row -->
     </form>
     <div class="d-grid gap-2 col-6 mx-auto">
-    <button class="btn btn-primary" type="submit" form="f" value="Submit">Ajouter</button>
+    <button class="btn custom-btn" type="submit" form="f" value="Submit">Ajouter</button>
 </div>  
 <br> 
 

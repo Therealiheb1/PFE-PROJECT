@@ -9,6 +9,8 @@ import { FilemanagerComponent } from './filemanager/filemanager.component';
 import { ComptesComponent } from '../comptes/comptes.component';
 import { AdminPannelComponent } from '../admin-pannel/admin-pannel.component';
 import { AddUserComponent } from '../add-user/add-user.component';
+import { AddAccountComponent } from '../add-account/add-account.component';
+import { CustDetailsComponent } from '../cust-details/cust-details.component';
 
 
 
@@ -16,11 +18,13 @@ const routes: Routes = [
   { path: '', redirectTo: 'Admin' },
 //  admin
   { path: 'dashboard', component: DefaultComponent },
+  { path: 'custdetails', component: CustDetailsComponent },
   { path: 'comptes', component: ComptesComponent },
   { path: 'Admin', component: AdminPannelComponent },
   { path: 'calendar', component: CalendarComponent },
   { path: 'chat', component: ChatComponent },
   { path: 'adduser', component:AddUserComponent },
+  { path: 'addacc', component:AddAccountComponent },
   { path: 'filemanager', component: FilemanagerComponent },
   { path: 'dashboards', loadChildren: () => import('./dashboards/dashboards.module').then(m => m.DashboardsModule) },
   { path: 'ecommerce', loadChildren: () => import('./ecommerce/ecommerce.module').then(m => m.EcommerceModule) },

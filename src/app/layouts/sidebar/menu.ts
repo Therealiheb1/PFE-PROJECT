@@ -16,7 +16,7 @@ export const MENU: MenuItem[] = [
         },
       
                 label: "Page d'acceuil",
-                link: '/comptes',
+                link: '/Admin',
                 parentId: 2
             
        
@@ -35,82 +35,17 @@ export const MENU: MenuItem[] = [
 
     {
         id: 29,
-        
-        icon: 'bx-envelope',
+        icon: 'bx-file',
+       
        
               
-                label: 'gérer compte',
-                link: '/dashboard',
+                label: 'registrer un nouveau client',
+                link: '/adduser',
                 parentId: 29
          
     },
 
-    
-    
-    
-    {
-        id: 7,
-        isLayout: true
-    },
-    {
-        id: 8,
-       
-        isTitle: true
-    },
-    {
-        id: 29,
-        
-        icon: 'bx-envelope',
-       
-              
-                label: 'MENUITEMS.EMAIL.LIST.INBOX',
-                link: '/email/inbox',
-                parentId: 29
-         
-    },
-     
-     {
-        id: 7,
-        isLayout: true
-    },
-    {
-        id: 8,
-       
-        isTitle: true
-    },
-     {
-        id: 11,
-        label: 'Mes informations',
-        icon: 'bx-file',
-        link: '/filemanager',
-        badge: {
-            variant: 'success',
-            text: 'MENUITEMS.FILEMANAGER.BADGE',
-        },
-    },
-    
-    {
-        id: 7,
-        isLayout: true
-    },
-    {
-        id: 8,
-       
-        isTitle: true
-    },  
-  
-   
-    {
-        id: 72,
-        
-        icon: 'bx-file',
-       
-                
-                label: 'FAQS / Support',
-                link: '/pages/faqs',
-                parentId: 72
-        
-    },
+ 
     
 ];
 
