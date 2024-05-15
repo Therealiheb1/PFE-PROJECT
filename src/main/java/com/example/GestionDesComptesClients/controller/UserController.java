@@ -1,10 +1,17 @@
 package com.example.GestionDesComptesClients.controller;
 
 import Exceptions.UserNotFoundException;
+import com.example.GestionDesComptesClients.DTO.UserCustomerDTO;
 import com.example.GestionDesComptesClients.Security.KeycloakConfiguration;
 import com.example.GestionDesComptesClients.Security.UserMapper;
+import com.example.GestionDesComptesClients.entities.Customer;
 import com.example.GestionDesComptesClients.entities.User;
+import com.example.GestionDesComptesClients.repository.CbankRepo;
+import com.example.GestionDesComptesClients.repository.CustomerRepo;
+import com.example.GestionDesComptesClients.repository.NumeroCompteRepo;
+import com.example.GestionDesComptesClients.service.CustService;
 import lombok.RequiredArgsConstructor;
+import org.keycloak.adapters.springsecurity.KeycloakAuthenticationException;
 import org.keycloak.admin.client.Keycloak;
 import org.keycloak.representations.idm.RoleRepresentation;
 import org.keycloak.representations.idm.UserRepresentation;
@@ -14,38 +21,105 @@ import javax.ws.rs.core.Response;
 import org.springframework.http.ResponseEntity;
 
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.Random;
 import java.util.stream.Collectors;
 
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/user")
 @RequiredArgsConstructor
 public class UserController {
+    @Autowired
+    CustomerRepo custrepo;
 
+    @Autowired
+    CbankRepo cbankRepo;
+
+    @Autowired
+    NumeroCompteRepo numCompteRepo;
+    @Autowired
+    private CustService custService;
     @Autowired
     private UserMapper userMapper;
     @Autowired
     KeycloakConfiguration keycloakConfiguration;
 
     @PostMapping("/add")
-    public ResponseEntity<?> createUser(@RequestBody User user) {
+    public ResponseEntity<?> createUser(@RequestBody UserCustomerDTO userDTO) {
         try {
+            User user = mapUserDTOToUser(userDTO);
+
+            String generatedUsername = generateRandomUsername(8);
+
+            user.setUsername(generatedUsername);
+            user.setPassword("123");
+
             String targetRealm = user.getTargetRealm();
             Keycloak keycloak = keycloakConfiguration.getKeycloakInstance(targetRealm);
             UserRepresentation userRep = userMapper.mapUserRep(user);
             Response response = keycloak.realm(targetRealm).users().create(userRep);
+
             if (response.getStatus() == 201) {
-                String userId = keycloak.realm(targetRealm).users().search(user.getUsername()).get(0).getId();
+
+                Customer customer = mapCustomerDTOToCustomer(userDTO);
+                 custService.createCustomer(customer);
+
+                String userId = keycloak.realm(targetRealm).users().search(generatedUsername).get(0).getId();
                 assignRole(userId, user.getRealmRoles(), targetRealm);
-                return ResponseEntity.ok().body("User created successfully");
+
+                return ResponseEntity.ok().body("User created successfully. Username: " + generatedUsername +
+                        ". Customer created successfully.");
             } else {
+                // Error occurred while creating user in Keycloak
                 return ResponseEntity.status(response.getStatus()).body(response.getStatusInfo().getReasonPhrase());
             }
-        } catch (IOException e) {
-            return ResponseEntity.badRequest().body("Error accessing Keycloak: " + e.getMessage());
+        } catch (IOException | KeycloakAuthenticationException e) {
+            // Error occurred during Keycloak operation or user creation in the database
+            return ResponseEntity.badRequest().body("Error: " + e.getMessage());
         }
+
+    }
+    private Customer mapCustomerDTOToCustomer(UserCustomerDTO userDTO) {
+        Customer customer = new Customer();
+        customer.setFirstName(userDTO.getFirstName());
+        customer.setLastName(userDTO.getLastName());
+        customer.setEmail(userDTO.getEmail());
+        customer.setTel(userDTO.getTel());
+        customer.setCin(userDTO.getCin());
+        customer.setSexe(userDTO.getSexe());
+        customer.setAgence(userDTO.getAgence());
+        customer.setProfession(userDTO.getProfession());
+        //String to LocalDate
+        LocalDate date = LocalDate.parse(userDTO.getDateN(), DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+        customer.setDateN(date);
+        return customer;
+    }
+    private User mapUserDTOToUser(UserCustomerDTO userDTO) {
+        User user = new User();
+        user.setUsername(userDTO.getUsername());
+        user.setFirstName(userDTO.getFirstName());
+        user.setLastName(userDTO.getLastName());
+        user.setEmail(userDTO.getEmail());
+        user.setPassword(userDTO.getPassword());
+        user.setRealmRoles(Collections.singletonList(userDTO.getRealmRoles().toString()));
+        return user;
+    }
+
+
+    private String generateRandomUsername(int length) {
+        // Define characters allowed in the username
+        String allowedChars = "0123456789";
+        Random random = new Random();
+        StringBuilder sb = new StringBuilder(length);
+        for (int i = 0; i < length; i++) {
+            sb.append(allowedChars.charAt(random.nextInt(allowedChars.length())));
+        }
+        return sb.toString();
     }
 
     private void assignRole(String userId, List<String> realmRoles, String targetRealm) throws IOException {

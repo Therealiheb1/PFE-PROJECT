@@ -8,7 +8,7 @@ import java.util.Date;
 @Entity
 
 public class Versement extends Operation {
-    public Versement(Date dateOperation, double montant, Compte compte) {
+    public Versement(Date dateOperation, double montant, Cbank compte) {
 
         super(dateOperation, montant, compte);
     }

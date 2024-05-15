@@ -1,6 +1,6 @@
 {
   "realmName": "EXTERNAL_ABT",
-  "auth-server-url": "http://localhost:8081/auth/",
+  "auth-server-url": "http://localhost:8181/auth/",
   "ssl-required": "external",
   "resource": "web",
   "public-client": true,
