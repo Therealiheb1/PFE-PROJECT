@@ -1,0 +1,54 @@
+<div class="table-responsive mb-0">
+  <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+    <div class="input-group w-50">
+      <input type="text" class="form-control" placeholder="Search" [(ngModel)]="searchQuery" (input)="applyFilter()">
+    </div>
+    <button class="btn custom-btn pull-right">
+      <h6>
+        <a routerLink="/addacc" class="nav-link text-white bx bx-user-plus" routerLinkActive="active">Ajouter un compte</a>
+      </h6>
+    </button>
+  </div>
+  <div class="form-group">
+    <label for="pageSize">Nombre de ligne</label>
+    <select class="form-select" id="pageSize" [(ngModel)]="paginationandsort.pageSize" name="pageSize" (change)="onPageSizeChange($event.target.value)" required>
+      <option value="">Select nombre</option>
+      <option *ngFor="let s of pageSize" [value]="s">{{ s }}</option>
+    </select>
+  </div>
+  <div class="form-group">
+    <label for="statues">Statue</label>
+    <select class="form-select" id="statues" [(ngModel)]="status" name="statues" (change)="StatuesChange($event.target.value)" required>
+      <option value="">Select statue</option>
+      <option *ngFor="let st of stat" [value]="st">{{ st }}</option>
+    </select>
+  </div>
+  <table class="table table-centered table-nowrap">
+    <thead class="table-light">
+      <tr>
+        <th class="align-middle">Rib <input type="text" class="form-control" [(ngModel)]="filters.rib" (input)="applyFilter()"></th>
+        <th class="align-middle">Iban <input type="text" class="form-control" [(ngModel)]="filters.iban" (input)="applyFilter()"></th>
+        <th class="align-middle">Solde <input type="text" class="form-control" [(ngModel)]="filters.solde" (input)="applyFilter()"></th>
+        <th class="align-middle"></th>
+        <th class="align-middle"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let compte of filteredCompte">
+        <td>{{ compte.rib }}</td>
+        <td>{{ compte.iban }}</td>
+        <td>{{ compte.solde }}</td>
+        <td>{{ compte.statues }}</td>
+        <td>
+          <button class="btn btn-primary bx bx-shield" (click)="archiveOrActivateAccount(compte.rib)">
+          </button>
+          <button class="btn btn-danger bx bx-arrow-back" (click)="addSolde(compte.rib)">
+          </button>
+          <button class="btn btn-success bx bx-cog" (click)="changeType(compte.rib)">
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <pagination-controls (pageChange)="handlePageChange($event)" previousLabel="Previous" nextLabel="Next"></pagination-controls>
+</div>

@@ -1,16 +1,19 @@
-import { Component, NgModule } from '@angular/core';
+import { Component, NgModule, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormsModule } from '@angular/forms';
-import { CustService } from '../cust.service';
-
+import { CustService } from '../core/services/cust.service';
 import { HttpClient } from '@angular/common/http';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-add-account',
   templateUrl: './add-account.component.html',
-  styleUrls: ['./add-account.component.scss']
+  styleUrls: ['./add-account.component.scss'],
+  providers: [DatePipe]
 })
-export class AddAccountComponent  {
+export class AddAccountComponent implements OnInit {
   customer = {
+    username: '',
+    password: '',
     firstName: '',
     lastName: '',
     email: '',
@@ -19,268 +22,53 @@ export class AddAccountComponent  {
     sexe: '',
     agence: '',
     profession: '',
-    daten:this.formatDate(new Date())
+    dateN: '',
+    realmRoles: []  
   };
+  f: FormGroup;
 
-  constructor(private service: CustService) {}
-   agencies: string[] = [
-     
- "ZAHROUNI",
- "MONASTIR EL HELIA",
- "MANOUBA",
- "SFAX NASRIA",
- "SFAX EL HABIB",
- "EL MOUROUJ 1",
- "BAB SOUIKA",
- "TAMAYOUZ",
- "LAC MARINA",
- "SFAX INTILAKA",
- "LES JASMINS",
- "CITE EL KHADHRA",
- "DAR FADHAL",
- "BAB SAADOUN",
- "SFAX MOULINVILLE",
- "BEN GARDANE",
- "BOX DE CHANGE CHERATON",
- "MENZAH 5",
- "EL DJEM",
- "SOUSSE BAB JEDID",
- "ARIANA",
- "EL MANAR",
- "JERBA HOUMET SOUK",
- "DAR CHAABANE",
- "EL GHAZELA",
- "BOX DE CHANGE HAMMAMET",
- "C.T.R",
- "BARDO CENTRE",
- "BIZERTE VILLE",
- "DIPLOMATE",
- "Av DE CARTHAGE",
- "MEDENINE",
- "SOUSSE  AV. HABIB  BOURGUBA",
- "BUDGET",
- "BARRAKET ESSAHEL",
- "MENZEH 8",
- "CONTENTIEUX",
- "SFAX LES JARDINS",
- "MEGRINE",
- "KHEIREDDINE PACHA",
- "EZZAHRA",
- "INTILAKA",
- "VIR.PRELEVEMENT",
- "SFAX HACHED",
- "REMADA",
- "SFAX LAFRANE",
- "SIDI HASSINE",
- "UNITE CUSTODY",
- "MUTUELLE VILLE",
- "MENZAH 1",
- "MARSA 2",
- "MARETH",
- "AGENCE SOUSSE SAHLOUL2",
- "ESPACE PERSO",
- "GROMBALIA",
- "AIN ZAGHOUAN ",
- "KORBA ",
- "SOUSSE ENNAKHIL ",
- "MENZAH 9",
- "SOUSSE KHEZAMA ",
- "BOUMHEL ",
- "MANAR 1 ",
- "MONTFLEURY ",
- "HABIB BOURGUIBA ",
- "SAKIET EZZIT ",
- "NABEUL LES JARDINS ",
- "HAMMAMET NORD ",
- "CYRUS LE GRAND ",
- "CARTHAGE BYRSA ",
- "EL MENZAH 6",
- "KSOUR ESSAF ",
- "CHARGUIA AEROPORT",
- "KHEIREDDINE",
- "BOUGARNIN",
- "BOU SALEM",
- "GAFSA L'ENVIRONNEMENT",
- "GAFSA KSAR ",
- "MAHRES",
- "SFAX THYNA",
- "BEN AROUS VILLE ",
- "EL MOUROUJ 3 ",
- "MENZEL BOUZELFA ",
- "SOUSSE MENCHIA",
- "RIADH EL ANDALOUS",
- "AGENCE MESSADINE",
- "BENI KHIAR",
- "MREZGA",
- "BIZERTE EL JALAA",
- "ZARZIS EL MOUENSA",
- "SUCCURSALE DU SIEGE",
- "CENTRE D AFFAIRES DU SIEGE",
- "MATEUR",
- "GREMDA",
- "BORJ LOUZIR",
- "BEN GUERDENE ENVIRONNEMENT",
- "MEDENINE IBN ARAFA",
- "SOUSSE BOUHASSINA",
- "EL ALIA",
- "SFAX EL ALIA",
- "EL BASSATINE",
- "GHOMRASSEN",
- "SOUSSE CENTER",
- "MEGRINE",
- "LA MARSA",
- "LE PASSAGE",
- "MESSAADINE",
- "LE LAC",
- "CAISSE CENTRALE",
- "HAMMAM SOUSSE",
- "CENTRE MONETIQUE",
- "TRESORERIE",
- "DIRECTION DES ENGAGEMENTS",
- "TUNIS  LIBERTE",
- "BACH HAMBA",
- "TABARKA",
- "BARDO",
- "JENDOUBA",
- "ZARMEDINE",
- "MAHDIA",
- "KSAR HELLAL",
- "JEMMAL",
- "TEBOULBA",
- "BOUFICHA",
- "KASSERINE",
- "MOKNINE",
- "BAKALTA",
- "BOUMERDESS",
- "KAIROUAN",
- "OULED  HAFFOUZOUZ",
- "BAB JEDID",
- "AV PARIS II",
- "MOHAMED V",
- "TUNIS BELVEDERE",
- "KASSERINE M'HIRI",
- "Av DE  PARIS",
- "D.C.S.E.",
- "DEN DEN",
- "SIDI BOUSAID",
- "MONCEF BEY",
- "HAMMAM-LIF",
- "BARCELONE",
- "LA GOULETTE",
- "RADES",
- "BIZERTE",
- "HAMMAMET",
- "NEAPOLIS",
- "BEJA",
- "TAJEROUINE",
- "LE  KRAM",
- "SFAX CHEBBI",
- "JEBENIANA",
- "GABES",
- "KEBILI",
- "DOUZ",
- "GAFSA",
- "TOZEUR",
- "METLAOUI",
- "REDEYEF",
- "SIDI BOUZID",
- "GAFSA II",
- "MOULARES",
- "ZARZIS",
- "JERBA EL MAY",
- "GABES EL MENZEL",
- "METOUIA",
- "SILIANA",
- "ARIANA NORD",
- "JARDINS EL MENZAH",
- "SFAX MENZEL CHAKER",
- "LES JARDINS DE CARTHAGE",
- "M'NIHLA",
- "AGENCE WE BANK",
- "AGENCE GOLAA",
- "BOX DE CHANGE DE L'AEROPORT DE TUNIS",
- "SUCCURSALE ENTREPRISE DE BIZERTE",
- "YASMINE HAMMAMET",
- "ENGAGEMENT (EPS)",
- "SUCCURSALE DU SIEGE",
- "TELECOMPENSATION",
- "COMPTABILITE",
- "CAISSE CENTRALE DE SOUSSE",
- "BOX DE CHANGE DE L'AEROPORT DE MONASTIR",
- "BOX DE CHANGE DE L'AEROPORT DE JERBA",
- "ENNASR 2",
- "SOUSSE SAHLOUL",
- "SIDI THABET",
- "ETTADHAMEN",
- "CHARGUIA",
- "MENZEL JEMIL",
- "MENZEL BOURGUIBA",
- "JERBA AJIM",
- "M 'SAKEN",
- "LE KEF",
- "MONGI SLIM",
- "DJERISSA",
- "BIR LAHMAR",
- "SOLIMAN",
- "ZARAT",
- "SOUK EL AHAD",
- "MONASTIR",
- "SFAX 5 AOUT",
- "NAFTA",
- "TATAOUINE",
- "ZONE FRANCHE ZARZIS",
- "KELIBIA",
- "BOU ARGOUB",
- "EL MECHTEL",
- "SFAX EL JADIDA",
- "EL AGHALIBA",
- "SFAX ZEPHYR",
- "SERVICE TITRES",
- "MESK ELLIL",
- "SFAX EL BOUSTEN",
- "FOUCHANA",
- "SOUKRA",
- "HEDI NOUIRA",
- "SOUSSE SENGHOR",
- "BEN AROUS",
- "SFAX THAMEUR",
- "MONPLAISIR",
- "CHARGUIA PARC D'EXPOSITION",
- "SOUSSE ERRIADH",
- "LES JARDIN DU LAC",
- "NOUVELLE ARIANA",
- "NABEUL",
- "LES ROSERAIES",
- "EL FAHS",
- "MENZEL TEMIME",
- "ZAGHOUANE",
- "EZZOUHOUR",
- "EL HRAIRIA"
-     
-       ];
-       sexe: string[] = [
-         
-         "Homme",
-         "Famme"
-       ];
-       formatDate(date: Date): string {
-        const year = date.getFullYear();
-        const month = ('0' + (date.getMonth() + 1)).slice(-2);
-        const day = ('0' + date.getDate()).slice(-2);
-        return `${year}-${month}-${day}`;
+  constructor(private service: CustService, private formBuilder: FormBuilder) {}
+
+  agencies: string[] = ["zahrouni"];
+  sexe: string[] = ["Homme", "Femme"];
+
+  formatDate(date: Date): string {
+    const year = date.getFullYear();
+    const month = ('0' + (date.getMonth() + 1)).slice(-2);
+    const day = ('0' + date.getDate()).slice(-2);
+    return `${year}-${month}-${day}`;
+  }
+
+  ngOnInit() {
+    this.f = this.formBuilder.group({
+      username: ['', Validators.required],
+      password: ['', Validators.required],
+      firstName: ['', Validators.required],
+      lastName: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]],
+      tel: ['', [Validators.required, Validators.minLength(8), Validators.maxLength(8)]],
+      cin: ['', [Validators.required, Validators.minLength(8), Validators.maxLength(8)]],
+      sexe: ['', Validators.required],
+      agence: ['', Validators.required],
+      profession: ['', Validators.required],
+      dateN: [this.formatDate(new Date()), Validators.required],
+      realmRoles: ['', Validators.required]
+    });
+  }
+
+  create() {
+    const user = this.f.value;
+    console.log('user    ', user);
+    console.log('this.customer    ', this.customer);
+
+    this.service.createUser(this.customer).subscribe(
+      response => {
+        console.log(response);
+        alert('Successfully created a new customer');
+      },
+      error => {
+        console.log(error);
       }
-       create() {
-        this.service.createCustomer(this.customer)
-          .subscribe(
-            response => {
-              console.log(response);
-              alert('Successfully created a new customer');
-              console.error('************************************************************values:   ', this.customer);
-            },
-            error => {
-              console.log(error);
-              alert('Failed to create a new customer');
-              console.error('************************************************************Error creating user:   ', error);
-            });
-      }
-    }
+    );
+  }
+}

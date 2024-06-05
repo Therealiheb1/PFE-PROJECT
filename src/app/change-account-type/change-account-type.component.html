@@ -1,0 +1,15 @@
+<div class="modal-header">
+    <h4 class="modal-title">Changer le type de compte</h4>
+    <button type="button" class="btn-close" aria-label="Fermer" (click)="closeModal()"></button>
+</div>
+<div class="modal-body">
+    <p>Changer le type de compte en :</p>
+    <select class="form-select" [(ngModel)]="selectedType" name="selectedType">
+        <option value="courant">Courant</option>
+        <option value="epargne">Épargne</option>
+    </select>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-secondary" (click)="closeModal()">Annuler</button>
+    <button type="button" class="btn btn-primary" (click)="changeType()">Changer le type</button>
+</div>

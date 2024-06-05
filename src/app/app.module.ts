@@ -46,6 +46,15 @@ import { AdmincComponent } from './adminc/adminc.component';
 import { CustDetailsComponent } from './cust-details/cust-details.component';
 import { AddAccountComponent } from './add-account/add-account.component';
 import { UpdateCustComponent } from './update-cust/update-cust.component';
+import { CpannelComponent } from './cpannel/cpannel.component';
+
+import { TranComponent } from './tran/tran.component';
+import { AcceuilComponent } from './acceuil/acceuil.component';
+import { VirmentComponent } from './virment/virment.component';
+import { AddSoldComponent } from './add-sold/add-sold.component';
+import { ChangeAccountTypeComponent } from './change-account-type/change-account-type.component';
+import { SupportComponent } from './support/support.component';
+import { ChequeComponent } from './cheque/cheque.component';
 
 
 // import { initializeKeycloak } from './pages/utility/app.init';
@@ -88,6 +97,14 @@ export function createTranslateLoader(http: HttpClient): any {
     CustDetailsComponent,
     AddAccountComponent,
     UpdateCustComponent,
+    CpannelComponent,
+    TranComponent,
+    AcceuilComponent,
+    VirmentComponent,
+    AddSoldComponent,
+    ChangeAccountTypeComponent,
+    SupportComponent,
+    ChequeComponent,
    
 
   ],

@@ -1,9 +1,5 @@
 import { Injectable } from '@angular/core';
-import {
-  ActivatedRouteSnapshot,
-  Router,
-  RouterStateSnapshot,
-} from '@angular/router';
+import { ActivatedRouteSnapshot, Router, RouterStateSnapshot } from '@angular/router';
 import { KeycloakAuthGuard, KeycloakService } from 'keycloak-angular';
 
 @Injectable({
@@ -21,29 +17,52 @@ export class AuthGuard extends KeycloakAuthGuard {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ) {
-    // Force the user to log in if currently unauthenticated.
     if (!this.authenticated) {
       await this.keycloak.login({
-        redirectUri: 'http://localhost:4200'
-      }); 
+        redirectUri: 'http://localhost:4201'
+      });
     }
 
-    // Get the roles required from the route.
     const requiredRoles = route.data.roles;
+    const userRoles = this.roles;
 
-    // Allow the user to to proceed if no additional roles are required to access the route.
+    if (userRoles.includes('ROLE_admin')) {
+      return true;
+    }
+
+    if (userRoles.includes('ROLE_superAdmin')) {
+      if (requiredRoles instanceof Array && requiredRoles.includes('ROLE_superAdmin')) {
+        return true;
+      } else {
+        this.router.navigate(['access-denied']);
+        return false;
+      }
+    }
+
     if (!(requiredRoles instanceof Array) || requiredRoles.length === 0) {
       return true;
     }
 
-    // Allow the user to proceed if all the required roles are present.
-    if (requiredRoles.every((role) => this.roles.includes(role))) {
+    if (requiredRoles.every((role) => userRoles.includes(role))) {
       return true;
-    // } else {
-    //   // redirect to error page if the user doesn't have the nessecairy  role to access
-    //   // we will define this routes in a bit
-    //   this.router.navigate(['access-denied']);
-    //   return false;
+    } else {
+      this.router.navigate(['access-denied']);
+      return false;
     }
+  }
+}
+export class AuthService {
+  constructor(private keycloakService: KeycloakService) { }
+
+  getUserRoles(): string[] {
+    return this.keycloakService.getUserRoles();
+  }
+
+  isAdmin(): boolean {
+    return this.getUserRoles().includes('ROLE_admin');
+  }
+
+  isSuperAdmin(): boolean {
+    return this.getUserRoles().includes('ROLE_superAdmin');
   }
 }

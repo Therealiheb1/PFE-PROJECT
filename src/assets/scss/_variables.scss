@@ -6,7 +6,7 @@
 //
 
 // Vertical Sidebar - Default Light
-$sidebar-bg: #ffffff;
+$sidebar-bg: #000000;
 $sidebar-menu-item-color: #ffffff;
 $sidebar-menu-sub-item-color: #ffffff;
 $sidebar-menu-item-icon-color: #ffffff;
@@ -17,12 +17,12 @@ $sidebar-collapsed-width:  70px;
 $sidebar-width-sm:  160px;
 
 // Vertical Sidebar - Dark
-$sidebar-dark-bg: #E85641; //2c313a
-$sidebar-dark-menu-item-color: #ffffff;
+$sidebar-dark-bg: #000000; //sidebar color (ysar)
+$sidebar-dark-menu-item-color: #fdfdfd;
 $sidebar-dark-menu-sub-item-color: #ffffff;
 $sidebar-dark-menu-item-icon-color: #ffffff;
-$sidebar-dark-menu-item-hover-color: #000000;
-$sidebar-dark-menu-item-active-color: #000000;
+$sidebar-dark-menu-item-hover-color: #E66C37;
+$sidebar-dark-menu-item-active-color: #E66C37;
 
 // Topbar - Deafult Light
 $header-height: 70px;

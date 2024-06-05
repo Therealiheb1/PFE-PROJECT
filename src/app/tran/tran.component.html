@@ -1,0 +1,20 @@
+<div class="container">
+    <div class="row mb-3">
+      <div class="col">
+        <div class="card">
+          <div class="card-body j">
+            <form (ngSubmit)="transferFunds()">
+              <div><label for="senderRib">RIB de l'expéditeur  :</label>
+              <input type="text" id="senderRib" name="senderRib"></div>
+              <div><label for="receiverRib">RIB du destinataire  :</label>
+              <input type="text" id="receiverRib" name="receiverRib"></div>
+              <div><label for="amount">Montant</label>
+              <input type="number" id="amount" name="amount"></div>
+              <div><button type="submit">Transfer</button></div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+  

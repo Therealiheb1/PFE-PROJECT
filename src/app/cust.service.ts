@@ -12,7 +12,7 @@ export class CustService {
   constructor(private http: HttpClient) {}
 
   createCustomer(customer: any): Observable<any>  {
-    const url = `${this.apiUrl}/customers`;
+    const url = `${this.apiUrl}/Customer`;
     return this.http.post<any>(url, customer);
   }
   updateCustomer(cin: number, customer: any): Observable<any> {

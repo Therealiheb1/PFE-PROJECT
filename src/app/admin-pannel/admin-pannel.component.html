@@ -1,40 +1,68 @@
 <div class="table-responsive mb-0">
-    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
- <button class="btn custom-btn  pull-right " > <h6> <a routerLink="/addacc" class="nav-link text-white bx bx-user-plus" routerLinkActive="active">  ajouter un compte client  </a> </h6> </button>
-</div>
-    <table class="table table-centered table-nowrap">
-      <thead class="table-light">
-        <tr>
-          
-          <th class="align-middle">Prenom </th>
-          <th class="align-middle">Nom </th>
-          <th class="align-middle">Email </th>
-          <th class="align-middle">CIN</th>
-          <th class="align-middle">Telephone</th>
-         
-          <th class="align-middle">Sexe</th>
-          <th class="align-middle">Profession</th>
-           <th class="align-middle">Agence</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor = "let cust of cust" >
-          <td> {{ cust.firstName }} </td>
-          <td> {{ cust.lastName }} </td>
-          <td> {{ cust.email }} </td>
-          <td> {{ cust.cin }} </td>
-          <td> {{ cust.tel }} </td>
-          <td> {{ cust.sexe }} </td>
-          <td> {{ cust.profession }} </td>
-          <td> {{ cust.agence }} </td>
-          <td>
-              <!-- <button (click) = "custdetails(cust.cin)" class = "btn g-btn" style="margin-left: 10px"> Edit</button> -->
-              <button class="btn g-btn" (click)="openDetailsModal(cust)">Edit</button>
-          </td>
-      </tr>
-             
-      </tbody>
-    </table>
-    <pagination-controls (pageChange)="handlePageChange($event)" previousLabel="Previous" nextLabel="Next"></pagination-controls>
+  <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+    <div class="input-group w-50">
+      <input 
+        type="text" class="form-control" placeholder="Search" [(ngModel)]="searchQuery" (keyup.enter)="applyFilterKeyword()"
+      >
+    </div>
+    <button class="btn custom-btn pull-right">
+      <h6>
+        <a routerLink="/addacc" class="nav-link text-white bx bx-user-plus" routerLinkActive="active">Ajouter un compte client</a>
+      </h6>
+    </button>
   </div>
-  <!-- end table -->
+  <div class="form-group">
+    <label for="sexe">Nombre de ligne</label>
+    <select class="form-select" id="sexe" [(ngModel)]="paginationandsort.pageSize" name="pageSize" required (change)="getCustomersSpageSize(paginationandsort.pageSize)">
+      <option value="">Select nombre</option>
+      <option *ngFor="let s of pageSize" [value]="s">{{ s }}</option>
+    </select>
+  </div>
+  <table class="table table-centered table-nowrap">
+    <thead class="table-light">
+      <tr>
+        <th class="align-middle">Prenom <input type="text" class="form-control" [(ngModel)]="filters.firstName" (input)="applyFilter()"></th>
+        <th class="align-middle">Nom <input type="text" class="form-control" [(ngModel)]="filters.lastName" (input)="applyFilter()"></th>
+        <th class="align-middle">Email <input type="text" class="form-control" [(ngModel)]="filters.email" (input)="applyFilter()"></th>
+        <th class="align-middle">CIN <input type="text" class="form-control" [(ngModel)]="filters.cin" (input)="applyFilter()"></th>
+        <th class="align-middle">Telephone <input type="text" class="form-control" [(ngModel)]="filters.tel" (input)="applyFilter()"></th>
+        <th class="align-middle">Sexe <input type="text" class="form-control" [(ngModel)]="filters.sexe" (input)="applyFilter()"></th>
+        <th class="align-middle">Profession <input type="text" class="form-control" [(ngModel)]="filters.profession" (input)="applyFilter()"></th>
+        <th class="align-middle">Agence <input type="text" class="form-control" [(ngModel)]="filters.agence" (input)="applyFilter()"></th>
+        <th class="align-middle"><button class="bx bx-search btn btn-outline-danger"></button></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let cust of filteredCustomers">
+        <td>{{ cust.firstName }}</td>
+        <td>{{ cust.lastName }}</td>
+        <td>{{ cust.email }}</td>
+        <td>{{ cust.cin }}</td>
+        <td>{{ cust.tel }}</td>
+        <td>{{ cust.sexe }}</td>
+        <td>{{ cust.profession }}</td>
+        <td>{{ cust.agence }}</td>
+        <td>
+          <button class="btn g-btn" (click)="openDetailsModal(cust)"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pen" viewBox="0 0 16 16">
+            <path d="m13.498.795.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001m-.644.766a.5.5 0 0 0-.707 0L1.95 11.756l-.764 3.057 3.057-.764L14.44 3.854a.5.5 0 0 0 0-.708z"/>
+          </svg></button>
+          <button class="btn e-btn" (click)="openComptesModal(cust.id)"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye" viewBox="0 0 16 16">
+            <path d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8M1.173 8a13 13 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5s3.879 1.168 5.168 2.457A13 13 0 0 1 14.828 8q-.086.13-.195.288c-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5s-3.879-1.168-5.168-2.457A13 13 0 0 1 1.172 8z"/>
+            <path d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5M4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0"/>
+          </svg></button>
+          <button class="btn btn-outline-danger" (click)="addCompte(cust.cin)"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-circle-fill" viewBox="0 0 16 16">
+            <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3z"/>
+          </svg></button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="col-md-12">
+    <pagination-controls
+      previousLabel="Prev"
+      nextLabel="Next"
+      [responsive]="true"
+      (pageChange)="handlePageChange($event)"
+    ></pagination-controls>
+  </div>
+</div>

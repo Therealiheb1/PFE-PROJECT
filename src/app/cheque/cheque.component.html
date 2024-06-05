@@ -1,0 +1,14 @@
+<div class="card-container">
+  <div class="card" *ngFor="let request of requests">
+    <div class="customer-info">
+      <div class="card-header">
+        <h5>Informations du client</h5>
+      </div>
+      <p>Nom et Prénom: {{ request.lastName }} {{request.firstName }} </p>
+      <p>CIN: {{ request.cin }} </p>
+      <p>EMAIL: {{ request.email }}</p>
+    </div>
+    <button class="btn btn-success" (click)="confirmerRequest(request.id)">Confirmer</button>
+    <button class="btn btn-danger">Annuler</button>
+  </div>
+</div>

@@ -11,21 +11,33 @@ import { AdminPannelComponent } from '../admin-pannel/admin-pannel.component';
 import { AddUserComponent } from '../add-user/add-user.component';
 import { AddAccountComponent } from '../add-account/add-account.component';
 import { CustDetailsComponent } from '../cust-details/cust-details.component';
+import { TranComponent } from '../tran/tran.component';
+import { BoxiconsComponent } from './icons/boxicons/boxicons.component';
+import { AcceuilComponent } from '../acceuil/acceuil.component';
+import { AddSoldComponent } from '../add-sold/add-sold.component';
+import { ChequeComponent } from '../cheque/cheque.component';
+import { AuthGuard } from '../pages/utility/app.guard';
+
 
 
 
 const routes: Routes = [
-  { path: '', redirectTo: 'Admin' },
-//  admin
-  { path: 'dashboard', component: DefaultComponent },
-  { path: 'custdetails', component: CustDetailsComponent },
-  { path: 'comptes', component: ComptesComponent },
-  { path: 'Admin', component: AdminPannelComponent },
-  { path: 'calendar', component: CalendarComponent },
-  { path: 'chat', component: ChatComponent },
-  { path: 'adduser', component:AddUserComponent },
-  { path: 'addacc', component:AddAccountComponent },
-  { path: 'filemanager', component: FilemanagerComponent },
+  { path: '', redirectTo: 'acceuil' },
+
+  { path: 'dashboard', component: DefaultComponent, canActivate: [AuthGuard], data: { roles: ['superAdmin'] } },
+  { path: 'custdetails', component: CustDetailsComponent, canActivate: [AuthGuard] },
+  { path: 'comptes', component: ComptesComponent, canActivate: [AuthGuard] },
+  { path: 'addsolde', component: AddSoldComponent, canActivate: [AuthGuard] },
+  { path: 'cheque', component: ChequeComponent, canActivate: [AuthGuard] },
+  { path: 'Admin', component: AdminPannelComponent, canActivate: [AuthGuard] },
+  { path: 'tran', component: TranComponent, canActivate: [AuthGuard] },
+  { path: 'acceuil', component: AcceuilComponent, canActivate: [AuthGuard] },
+  { path: 'box', component: BoxiconsComponent, canActivate: [AuthGuard] },
+  { path: 'calendar', component: CalendarComponent, canActivate: [AuthGuard] },
+  { path: 'chat', component: ChatComponent, canActivate: [AuthGuard] },
+  { path: 'adduser', component: AddUserComponent, canActivate: [AuthGuard] },
+  { path: 'addacc', component: AddAccountComponent, canActivate: [AuthGuard], data: { roles: ['superAdmin'] } },
+  { path: 'filemanager', component: FilemanagerComponent, canActivate: [AuthGuard] },
   { path: 'dashboards', loadChildren: () => import('./dashboards/dashboards.module').then(m => m.DashboardsModule) },
   { path: 'ecommerce', loadChildren: () => import('./ecommerce/ecommerce.module').then(m => m.EcommerceModule) },
   { path: 'crypto', loadChildren: () => import('./crypto/crypto.module').then(m => m.CryptoModule) },

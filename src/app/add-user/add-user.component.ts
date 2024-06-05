@@ -25,8 +25,6 @@ export class AddUserComponent  {
 
     });
   }
-
-
   onSubmit() {
     const user = this.f.value;
     this.userService.createUser(user)
