@@ -23,7 +23,7 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
 
 
-import { KeycloakAngularModule, KeycloakService } from 'keycloak-angular';
+import { KeycloakAngularModule, KeycloakAuthGuard, KeycloakService } from 'keycloak-angular';
 import { ComptesComponent } from './comptes/comptes.component';
 
 import { NgxPaginationModule } from 'ngx-pagination';
@@ -55,28 +55,30 @@ import { AddSoldComponent } from './add-sold/add-sold.component';
 import { ChangeAccountTypeComponent } from './change-account-type/change-account-type.component';
 import { SupportComponent } from './support/support.component';
 import { ChequeComponent } from './cheque/cheque.component';
+import { initializer } from './pages/utility/app.init';
+import { AuthGuard } from './pages/utility/app.guard';
 
 
-// import { initializeKeycloak } from './pages/utility/app.init';
+ //import { initializeKeycloak } from './pages/utility/app.init';
 
 // Addressing the error:
-export function initializeKeycloak(keycloak: KeycloakService) {
-  return () => {
-    return keycloak.init({
-      config: {
-        url: 'http://localhost:8080',
-        realm: 'ABT_Realm',
-        clientId: 'ABT_App'
-      },
-      loadUserProfileAtStartUp: true,
-      initOptions: {
-        onLoad: 'login-required',
-        redirectUri: 'http://localhost:4201/',
-        promiseType: 'native'
-      }
-    });
-  };
-}
+// export function initializeKeycloak(keycloak: KeycloakService) {
+//   return () => {
+//     return keycloak.init({
+//       config: {
+//         url: 'http://localhost:8080',
+//         realm: 'ABT_Realm',
+//         clientId: 'ABT_App'
+//       },
+//       loadUserProfileAtStartUp: true,
+//       initOptions: {
+//         onLoad: 'login-required',
+//         redirectUri: 'http://localhost:4201/',
+//         promiseType: 'native'
+//       }
+//     });
+//   };
+// }
 
 export function createTranslateLoader(http: HttpClient): any {
   return new TranslateHttpLoader(http, 'assets/i18n/', '.json');
@@ -142,11 +144,11 @@ export function createTranslateLoader(http: HttpClient): any {
   providers: [
     {
       provide: APP_INITIALIZER,
-      useFactory: initializeKeycloak,
+      useFactory: initializer,
       multi: true,
       deps: [KeycloakService]
     },
-
+    AuthGuard
 
     // { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     // { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
@@ -154,6 +156,7 @@ export function createTranslateLoader(http: HttpClient): any {
     // LoaderService,
     // { provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptorService, multi: true },
   ],
+
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class AppModule { }

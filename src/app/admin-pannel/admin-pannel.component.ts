@@ -6,6 +6,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { CustDetailsComponent } from '../cust-details/cust-details.component';
 import { CpannelComponent } from '../cpannel/cpannel.component';
 import Swal from 'sweetalert2';
+import { finalize } from 'rxjs/operators'; 
 
 @Component({
   selector: 'app-admin-pannel',
@@ -27,40 +28,80 @@ export class AdminPannelComponent implements OnInit {
     tel: '',
     sexe: '',
     profession: '',
-    agence: ''
+    agence: '',
+    searchQuery: ''
   };
+  loading: boolean = false;
 
   constructor(private modalService: NgbModal, private custservice: CustService, private router: Router) {}
-
+  totalPages: number = 0;
   page: number = 0;
   pageSize: number[] = [1, 3, 5, 10, 20, 30];
 
   ngOnInit(): void {
-    this.getCustomers();
+    // this.getCustomers();
   }
 
-  getCustomersSpageSize(pageSize: number) {
-    console.log('getCustomersSpageSize called with pageSize:', pageSize);
-    this.paginationandsort.pageSize = pageSize;
-    this.custservice.getCustomersList(this.page, pageSize).subscribe(data => {
-      this.cust = data;
-      this.applyFilter();
-    });
+  goToPage(page: number) {
+    this.page = page;
+    this.applyFilters();
   }
 
-  getCustomers() {
-    console.log('getCustomers called with page:', this.page, 'and pageSize:', this.paginationandsort.pageSize);
-    this.custservice.getCustomersList(this.page, this.paginationandsort.pageSize).subscribe(data => {
-      this.cust = data;
-      this.applyFilter();
-    });
+  get pages(): number[] {
+    const pages = [];
+    if (this.totalPages <= 5) {
+      for (let i = 0; i < this.totalPages; i++) {
+        pages.push(i);
+      }
+    } else {
+      if (this.page < 3) {
+        for (let i = 0; i < 5; i++) {
+          pages.push(i);
+        }
+      } else if (this.page >= this.totalPages - 3) {
+        for (let i = this.totalPages - 5; i < this.totalPages; i++) {
+          pages.push(i);
+        }
+      } else {
+        for (let i = this.page - 2; i <= this.page + 2; i++) {
+          pages.push(i);
+        }
+      }
+    }
+    return pages;
+  }
+
+  applyFilters() {
+    const params = {
+      firstName: this.filters.firstName,
+      lastName: this.filters.lastName,
+      email: this.filters.email,
+      cin: this.filters.cin,
+      tel: this.filters.tel,
+      sexe: this.filters.sexe,
+      profession: this.filters.profession,
+      agence: this.filters.agence,
+      keyword: this.searchQuery
+    };
+  
+    console.log('Search Parameters:', params); 
+    
+    this.custservice.filterCustomers(params, this.page, this.paginationandsort.pageSize).subscribe(
+      (data: any) => {
+        console.log('Filtered Customers:', data); 
+        this.filteredCustomers = data.content;
+      },
+      (error) => {
+        console.error('Error filtering customers:', error);
+      }
+    );
   }
 
   onPageSizeChange(pageSize: string) {
     console.log('onPageSizeChange called with pageSize:', pageSize);
     this.paginationandsort.pageSize = parseInt(pageSize, 10);
     this.page = 0;
-    this.getCustomers();
+    // this.getCustomers();
   }
 
   custdetails(cin: number) {
@@ -70,7 +111,7 @@ export class AdminPannelComponent implements OnInit {
   handlePageChange(e: any) {
     console.log('handlePageChange called with e:', e);
     this.page = e;
-    this.getCustomers();
+    // this.getCustomers();
   }
 
   openDetailsModal(customer: Customers) {
@@ -85,29 +126,8 @@ export class AdminPannelComponent implements OnInit {
     modalRef.componentInstance.customerId = customerId;
   }
 
-  applyFilter() {
-    this.custservice.filterCustomers(
-      this.filters.firstName || 'null',
-      this.filters.lastName || 'null',
-      this.filters.cin || 'null',
-      this.filters.sexe || 'null',
-      this.filters.tel || 'null',
-      this.filters.email || 'null',
-      this.filters.agence || 'null',
-      this.filters.profession || 'null',
-  
-    ).subscribe(filteredData => {
-      this.filteredCustomers = filteredData;
-    });
- 
-  }
-  applyFilterKeyword() {
-    this.custservice.filterCustomersByKeyword(this.searchQuery).subscribe(filteredData => {
-      this.filteredCustomers = filteredData;
-    });
-  }
   clearSearch() {
-    this.searchQuery = '';
+    
     this.filters = {
       firstName: '',
       lastName: '',
@@ -117,21 +137,26 @@ export class AdminPannelComponent implements OnInit {
       sexe: '',
       profession: '',
       agence: '',
-     
+      searchQuery : ''
     };
-    this.applyFilter();
   }
+
   addCompte(cin: string) {
-    this.custservice.addCompte(cin).subscribe(
-      (response) => {
-        console.log('Compte ajouté avec succès', response);
-        Swal.fire('Salut !', 'Compte ajouté avec succès', 'success')
-      
-      },
-      (error) => {
-        console.error('Error adding compte:', error);
-        Swal.fire(':/', 'Error adding compte:', 'error')
-      }
-    );
+    this.loading = true; 
+
+    this.custservice.addCompte(cin)
+      .pipe(
+        finalize(() => { this.loading = false; }) 
+      )
+      .subscribe(
+        (response) => {
+          console.log('Compte ajouté avec succès', response);
+          Swal.fire('Salut !', 'Compte ajouté avec succès', 'success');
+        },
+        (error) => {
+          console.error('Error adding compte:', error);
+          Swal.fire(':/', 'Error adding compte:', 'error');
+        }
+      );
   }
 }

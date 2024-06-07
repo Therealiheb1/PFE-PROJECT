@@ -5,27 +5,30 @@ import { Router, NavigationEnd } from '@angular/router';
 
 import { HttpClient } from '@angular/common/http';
 
-import { MENU, getFilteredMenu } from './menu';
+import { MENU } from './menu';
 import { MenuItem } from './menu.model';
 import { TranslateService } from '@ngx-translate/core';
-import { AuthService } from 'src/app/pages/utility/app.guard';
 
 @Component({
   selector: 'app-sidebar',
   templateUrl: './sidebar.component.html',
   styleUrls: ['./sidebar.component.scss']
 })
+
+/**
+ * Sidebar component
+ */
 export class SidebarComponent implements OnInit, AfterViewInit, OnChanges {
   @ViewChild('componentRef') scrollRef;
   @Input() isCondensed = false;
   menu: any;
   data: any;
 
-  menuItems: MenuItem[] = [];
+  menuItems = [];
 
   @ViewChild('sideMenu') sideMenu: ElementRef;
 
-  constructor(private eventService: EventService, private router: Router, public translate: TranslateService, private http: HttpClient, private authService: AuthService) {
+  constructor(private eventService: EventService, private router: Router, public translate: TranslateService, private http: HttpClient) {
     router.events.forEach((event) => {
       if (event instanceof NavigationEnd) {
         this._activateMenuDropdown();
@@ -57,7 +60,6 @@ export class SidebarComponent implements OnInit, AfterViewInit, OnChanges {
       this.menu.dispose();
     }
   }
-
   _scrollElement() {
     setTimeout(() => {
       if (document.getElementsByClassName("mm-active").length > 0) {
@@ -70,6 +72,9 @@ export class SidebarComponent implements OnInit, AfterViewInit, OnChanges {
     }, 300);
   }
 
+  /**
+   * remove active and mm-active class
+   */
   _removeAllClass(className) {
     const els = document.getElementsByClassName(className);
     while (els[0]) {
@@ -77,11 +82,15 @@ export class SidebarComponent implements OnInit, AfterViewInit, OnChanges {
     }
   }
 
+  /**
+   * Activate the parent dropdown
+   */
   _activateMenuDropdown() {
     this._removeAllClass('mm-active');
     this._removeAllClass('mm-show');
     const links = document.getElementsByClassName('side-nav-link-ref');
     let menuItemEl = null;
+    // tslint:disable-next-line: prefer-for-of
     const paths = [];
     for (let i = 0; i < links.length; i++) {
       paths.push(links[i]['pathname']);
@@ -123,12 +132,20 @@ export class SidebarComponent implements OnInit, AfterViewInit, OnChanges {
         }
       }
     }
+
   }
 
+  /**
+   * Initialize
+   */
   initialize(): void {
-    this.menuItems = getFilteredMenu();
+    this.menuItems = MENU;
   }
 
+  /**
+   * Returns true or false if given menu item has child or not
+   * @param item menuItem
+   */
   hasItems(item: MenuItem) {
     return item.subItems !== undefined ? item.subItems.length > 0 : false;
   }

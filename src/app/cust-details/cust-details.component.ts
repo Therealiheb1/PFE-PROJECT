@@ -32,7 +32,7 @@ export class CustDetailsComponent implements OnInit {
       dateN: [{ value: this.cust.dateN, disabled: true }, Validators.required],
       sexe: [{ value: this.cust.sexe, disabled: true }, Validators.required],
       profession: [this.cust.profession, Validators.required],
-      agence: [{ value: this.cust.agence, disabled: true }, Validators.required],
+      agence: [{ value: this.cust.agence, disabled: true }, Validators.required], 
     });
   }
 

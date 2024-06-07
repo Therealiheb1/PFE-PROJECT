@@ -1,20 +1,19 @@
-<div class="container">
-    <div class="row mb-3">
-      <div class="col">
-        <div class="card">
-          <div class="card-body j">
-            <form (ngSubmit)="transferFunds()">
-              <div><label for="senderRib">RIB de l'expéditeur  :</label>
-              <input type="text" id="senderRib" name="senderRib"></div>
-              <div><label for="receiverRib">RIB du destinataire  :</label>
-              <input type="text" id="receiverRib" name="receiverRib"></div>
-              <div><label for="amount">Montant</label>
-              <input type="number" id="amount" name="amount"></div>
-              <div><button type="submit">Transfer</button></div>
-            </form>
-          </div>
+    
+    <div class="d-flex justify-content-center align-items-center vh-100">
+      <form (ngSubmit)="transferFunds()" class="w-50 p-4 border rounded shadow-sm bg-white">
+        <div class="form-group">
+          <label for="senderRib">RIB de l'expéditeur  :</label>
+          <input type="text" id="senderRib" name="senderRib" [(ngModel)]="senderRib" class="form-control" required>
         </div>
-      </div>
+        <div class="form-group">
+          <label for="receiverRib">RIB du destinataire :</label>
+          <input type="text" id="receiverRib" [(ngModel)]="receiverRib" name="receiverRib" class="form-control" required>
+        </div>
+        <div class="form-group">
+          <label for="value">Montant :</label>
+          <input type="number" id="value" [(ngModel)]="value" name="value" class="form-control" required>
+        </div>
+        <button type="submit" class="btn btn-primary btn-block">Transférer</button>
+      </form>
     </div>
     
-  

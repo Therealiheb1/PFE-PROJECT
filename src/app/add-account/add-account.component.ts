@@ -3,6 +3,8 @@ import { FormGroup, FormBuilder, Validators, FormsModule } from '@angular/forms'
 import { CustService } from '../core/services/cust.service';
 import { HttpClient } from '@angular/common/http';
 import { DatePipe } from '@angular/common';
+import { Router } from '@angular/router';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-add-account',
@@ -27,7 +29,7 @@ export class AddAccountComponent implements OnInit {
   };
   f: FormGroup;
 
-  constructor(private service: CustService, private formBuilder: FormBuilder) {}
+  constructor(private service: CustService, private formBuilder: FormBuilder,private router: Router) {}
 
   agencies: string[] = ["zahrouni"];
   sexe: string[] = ["Homme", "Femme"];
@@ -51,8 +53,8 @@ export class AddAccountComponent implements OnInit {
       sexe: ['', Validators.required],
       agence: ['', Validators.required],
       profession: ['', Validators.required],
-      dateN: [this.formatDate(new Date()), Validators.required],
-      realmRoles: ['', Validators.required]
+      dateN: [''],
+      realmRoles: [[], Validators.required]
     });
   }
 
@@ -61,14 +63,21 @@ export class AddAccountComponent implements OnInit {
     console.log('user    ', user);
     console.log('this.customer    ', this.customer);
 
-    this.service.createUser(this.customer).subscribe(
-      response => {
-        console.log(response);
-        alert('Successfully created a new customer');
-      },
-      error => {
-        console.log(error);
+  
+    this.service.createUser(user).subscribe({
+      next:res=>{
+        console.log("res issssssss           ",res);
+        Swal.fire({
+          position: "top-end",
+          icon: "success",
+          title: "Ajout réussi",
+          showConfirmButton: false,
+          timer: 1500
+        });
       }
-    );
+      
+    })
+
+
   }
 }

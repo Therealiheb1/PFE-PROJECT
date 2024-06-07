@@ -16,44 +16,28 @@ import { BoxiconsComponent } from './icons/boxicons/boxicons.component';
 import { AcceuilComponent } from '../acceuil/acceuil.component';
 import { AddSoldComponent } from '../add-sold/add-sold.component';
 import { ChequeComponent } from '../cheque/cheque.component';
-import { AuthGuard } from '../pages/utility/app.guard';
+import { AuthGuard } from './utility/app.guard';
+// import { AuthGuard } from '../pages/utility/app.guard';
 
 
 
 
 const routes: Routes = [
   { path: '', redirectTo: 'acceuil' },
-
-  { path: 'dashboard', component: DefaultComponent, canActivate: [AuthGuard], data: { roles: ['superAdmin'] } },
-  { path: 'custdetails', component: CustDetailsComponent, canActivate: [AuthGuard] },
-  { path: 'comptes', component: ComptesComponent, canActivate: [AuthGuard] },
-  { path: 'addsolde', component: AddSoldComponent, canActivate: [AuthGuard] },
-  { path: 'cheque', component: ChequeComponent, canActivate: [AuthGuard] },
-  { path: 'Admin', component: AdminPannelComponent, canActivate: [AuthGuard] },
-  { path: 'tran', component: TranComponent, canActivate: [AuthGuard] },
-  { path: 'acceuil', component: AcceuilComponent, canActivate: [AuthGuard] },
-  { path: 'box', component: BoxiconsComponent, canActivate: [AuthGuard] },
-  { path: 'calendar', component: CalendarComponent, canActivate: [AuthGuard] },
-  { path: 'chat', component: ChatComponent, canActivate: [AuthGuard] },
-  { path: 'adduser', component: AddUserComponent, canActivate: [AuthGuard] },
-  { path: 'addacc', component: AddAccountComponent, canActivate: [AuthGuard], data: { roles: ['superAdmin'] } },
-  { path: 'filemanager', component: FilemanagerComponent, canActivate: [AuthGuard] },
-  { path: 'dashboards', loadChildren: () => import('./dashboards/dashboards.module').then(m => m.DashboardsModule) },
-  { path: 'ecommerce', loadChildren: () => import('./ecommerce/ecommerce.module').then(m => m.EcommerceModule) },
-  { path: 'crypto', loadChildren: () => import('./crypto/crypto.module').then(m => m.CryptoModule) },
-  { path: 'email', loadChildren: () => import('./email/email.module').then(m => m.EmailModule) },
-  { path: 'invoices', loadChildren: () => import('./invoices/invoices.module').then(m => m.InvoicesModule) },
-  { path: 'projects', loadChildren: () => import('./projects/projects.module').then(m => m.ProjectsModule) },
-  { path: 'tasks', loadChildren: () => import('./tasks/tasks.module').then(m => m.TasksModule) },
-  { path: 'contacts', loadChildren: () => import('./contacts/contacts.module').then(m => m.ContactsModule) },
-  { path: 'blog', loadChildren: () => import('./blog/blog.module').then(m => m.BlogModule) },
-  { path: 'pages', loadChildren: () => import('./utility/utility.module').then(m => m.UtilityModule) },
-  { path: 'ui', loadChildren: () => import('./ui/ui.module').then(m => m.UiModule) },
-  { path: 'form', loadChildren: () => import('./form/form.module').then(m => m.FormModule) },
-  { path: 'tables', loadChildren: () => import('./tables/tables.module').then(m => m.TablesModule) },
-  { path: 'icons', loadChildren: () => import('./icons/icons.module').then(m => m.IconsModule) },
-  { path: 'charts', loadChildren: () => import('./chart/chart.module').then(m => m.ChartModule) },
-  { path: 'maps', loadChildren: () => import('./maps/maps.module').then(m => m.MapsModule) },
+//,canActivate: [AuthGuard], data: { roles: ['superROLE_Admin'] } 
+  { path: 'dashboard', component: DefaultComponent },
+  { path: 'custdetails', component: CustDetailsComponent  ,canActivate: [AuthGuard], data: { roles: ['ROLE_admin'] } },
+  { path: 'comptes', component: ComptesComponent ,canActivate: [AuthGuard], data: { roles: ['ROLE_admin'] } },
+  { path: 'addsolde', component: AddSoldComponent ,canActivate: [AuthGuard], data: { roles: ['ROLE_admin'] } },
+  { path: 'cheque', component: ChequeComponent ,canActivate: [AuthGuard], data: { roles: ['ROLE_admin'] } },
+  { path: 'Admin', component: AdminPannelComponent ,canActivate: [AuthGuard], data: { roles: ['ROLE_admin','ROLE_superAdmin'] } },
+  { path: 'tran', component: TranComponent,canActivate: [AuthGuard], data: { roles: ['ROLE_admin'] }  },
+  { path: 'acceuil', component: AcceuilComponent  ,canActivate: [AuthGuard], data: { roles: ['ROLE_admin'] } },
+  { path: 'box', component: BoxiconsComponent ,canActivate: [AuthGuard], data: { roles: ['ROLE_admin'] } },
+  { path: 'calendar', component: CalendarComponent ,canActivate: [AuthGuard], data: { roles: ['ROLE_admin'] } },
+  { path: 'chat', component: ChatComponent ,canActivate: [AuthGuard], data: { roles: ['ROLE_admin'] } },
+  { path: 'adduser', component: AddUserComponent ,canActivate: [AuthGuard], data: { roles: ['ROLE_superAdmin'] } },
+  { path: 'addacc', component: AddAccountComponent,canActivate: [AuthGuard], data: { roles: ['ROLE_admin','ROLE_superAdmin'] } },
 
 
 ];

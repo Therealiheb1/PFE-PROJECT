@@ -1,68 +1,95 @@
+
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, Router, RouterStateSnapshot } from '@angular/router';
+import {
+  ActivatedRouteSnapshot,
+  Router,
+  RouterStateSnapshot,
+} from '@angular/router';
 import { KeycloakAuthGuard, KeycloakService } from 'keycloak-angular';
 
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable()
 export class AuthGuard extends KeycloakAuthGuard {
   constructor(
-    protected readonly router: Router,
-    protected readonly keycloak: KeycloakService
+
+    protected router: Router,
+
+    protected keycloakAngular: KeycloakService
+
   ) {
-    super(router, keycloak);
+
+    super(router, keycloakAngular);
+
   }
 
-  public async isAccessAllowed(
+ 
+
+  isAccessAllowed(
+
     route: ActivatedRouteSnapshot,
+
     state: RouterStateSnapshot
-  ) {
-    if (!this.authenticated) {
-      await this.keycloak.login({
-        redirectUri: 'http://localhost:4201'
-      });
-    }
 
-    const requiredRoles = route.data.roles;
-    const userRoles = this.roles;
+  ): Promise<boolean> {
+        console.log("innnnnnnnnnnnnnnnn");
+        
+    return new Promise((resolve, reject) => {
 
-    if (userRoles.includes('ROLE_admin')) {
-      return true;
-    }
+    let permission;
 
-    if (userRoles.includes('ROLE_superAdmin')) {
-      if (requiredRoles instanceof Array && requiredRoles.includes('ROLE_superAdmin')) {
-        return true;
-      } else {
-        this.router.navigate(['access-denied']);
-        return false;
+      if (!this.authenticated) {
+
+        this.keycloakAngular.login().catch((e) => console.error(e));
+
+        return reject(false);
+
       }
-    }
 
-    if (!(requiredRoles instanceof Array) || requiredRoles.length === 0) {
-      return true;
-    }
+     
 
-    if (requiredRoles.every((role) => userRoles.includes(role))) {
-      return true;
-    } else {
-      this.router.navigate(['access-denied']);
-      return false;
-    }
+     
+
+      const requiredRoles: string[] = route.data.roles;
+        console.log("requiredRoles          ",requiredRoles);
+        
+      if (!requiredRoles || requiredRoles.length === 0) {
+  
+        permission = true;
+
+      } else {
+
+        if (!this.roles || this.roles.length === 0) {
+
+        permission = false
+
+        }
+        console.log("this.roles        ",this.roles);
+        console.log("this.roles[0]        ",this.roles[0]);
+            
+        if (requiredRoles.includes("ROLE_admin") || requiredRoles.includes("ROLE_superAdmin"))
+
+        {
+            console.log("permission          ",permission);
+
+            permission=true;
+
+        } else {
+
+            permission=false;
+
+        };
+
+      }
+
+      if(!permission){
+
+          this.router.navigate(['/']);
+
+      }
+
+      resolve(permission)
+
+    });
+
   }
-}
-export class AuthService {
-  constructor(private keycloakService: KeycloakService) { }
 
-  getUserRoles(): string[] {
-    return this.keycloakService.getUserRoles();
-  }
-
-  isAdmin(): boolean {
-    return this.getUserRoles().includes('ROLE_admin');
-  }
-
-  isSuperAdmin(): boolean {
-    return this.getUserRoles().includes('ROLE_superAdmin');
-  }
 }

@@ -2,7 +2,7 @@
   <div class="d-grid gap-2 d-md-flex justify-content-md-end">
     <div class="input-group w-50">
       <input 
-        type="text" class="form-control" placeholder="Search" [(ngModel)]="searchQuery" (keyup.enter)="applyFilterKeyword()"
+        type="text" class="form-control" placeholder="Search "[(ngModel)]="filters.searchQuery" 
       >
     </div>
     <button class="btn custom-btn pull-right">
@@ -13,7 +13,7 @@
   </div>
   <div class="form-group">
     <label for="sexe">Nombre de ligne</label>
-    <select class="form-select" id="sexe" [(ngModel)]="paginationandsort.pageSize" name="pageSize" required (change)="getCustomersSpageSize(paginationandsort.pageSize)">
+    <select class="form-select" id="sexe" [(ngModel)]="paginationandsort.pageSize" name="pageSize" required>
       <option value="">Select nombre</option>
       <option *ngFor="let s of pageSize" [value]="s">{{ s }}</option>
     </select>
@@ -21,16 +21,21 @@
   <table class="table table-centered table-nowrap">
     <thead class="table-light">
       <tr>
-        <th class="align-middle">Prenom <input type="text" class="form-control" [(ngModel)]="filters.firstName" (input)="applyFilter()"></th>
-        <th class="align-middle">Nom <input type="text" class="form-control" [(ngModel)]="filters.lastName" (input)="applyFilter()"></th>
-        <th class="align-middle">Email <input type="text" class="form-control" [(ngModel)]="filters.email" (input)="applyFilter()"></th>
-        <th class="align-middle">CIN <input type="text" class="form-control" [(ngModel)]="filters.cin" (input)="applyFilter()"></th>
-        <th class="align-middle">Telephone <input type="text" class="form-control" [(ngModel)]="filters.tel" (input)="applyFilter()"></th>
-        <th class="align-middle">Sexe <input type="text" class="form-control" [(ngModel)]="filters.sexe" (input)="applyFilter()"></th>
-        <th class="align-middle">Profession <input type="text" class="form-control" [(ngModel)]="filters.profession" (input)="applyFilter()"></th>
-        <th class="align-middle">Agence <input type="text" class="form-control" [(ngModel)]="filters.agence" (input)="applyFilter()"></th>
-        <th class="align-middle"><button class="bx bx-search btn btn-outline-danger"></button></th>
+        <th class="align-middle">Prenom <input type="text" class="form-control" [(ngModel)]="filters.firstName"></th>
+        <th class="align-middle">Nom <input type="text" class="form-control" [(ngModel)]="filters.lastName"></th>
+        <th class="align-middle">Email <input type="text" class="form-control" [(ngModel)]="filters.email"></th>
+        <th class="align-middle">CIN <input type="text" class="form-control" [(ngModel)]="filters.cin"></th>
+        <th class="align-middle">Telephone <input type="text" class="form-control" [(ngModel)]="filters.tel"></th>
+        <th class="align-middle">Sexe <input type="text" class="form-control" [(ngModel)]="filters.sexe"></th>
+        <th class="align-middle">Profession <input type="text" class="form-control" [(ngModel)]="filters.profession"></th>
+        <th class="align-middle">Agence <input type="text" class="form-control" [(ngModel)]="filters.agence"></th>
+        <th class="align-middle">
+          <button class="bx bx-search btn btn-outline-danger" (click)="applyFilters()"></button>
+        </th>
+        
       </tr>
+      
+      
     </thead>
     <tbody>
       <tr *ngFor="let cust of filteredCustomers">
@@ -57,12 +62,26 @@
       </tr>
     </tbody>
   </table>
-  <div class="col-md-12">
-    <pagination-controls
-      previousLabel="Prev"
-      nextLabel="Next"
-      [responsive]="true"
-      (pageChange)="handlePageChange($event)"
-    ></pagination-controls>
+  <div class="pagination-container">
+    <ul class="pagination">
+      <li class="page-item" [class.disabled]="page === 0">
+        <a class="page-link" (click)="goToPage(0)">First</a>
+      </li>
+      <li class="page-item" *ngIf="page > 1">
+        <a class="page-link">...</a>
+      </li>
+      <li class="page-item" *ngFor="let p of pages" [class.active]="p === page">
+        <a class="page-link" (click)="goToPage(p)">{{ p + 1 }}</a>
+      </li>
+      <li class="page-item" *ngIf="page < totalPages - 2">
+        <a class="page-link">...</a>
+      </li>
+      <li class="page-item" [class.disabled]="page === totalPages - 1">
+        <a class="page-link" (click)="goToPage(totalPages - 1)">Last</a>
+      </li>
+    </ul>
+  </div>
+  <div *ngIf="loading" class="spinner-container">
+    <div class="spinner"></div>
   </div>
 </div>

@@ -31,3 +31,10 @@ export class compte {
     agence: string;
     profession: string;
 }
+export interface Pages<T> {
+    content: T[];
+    totalElements: number;
+    totalPages: number;
+    size: number;
+    number: number;
+  }
