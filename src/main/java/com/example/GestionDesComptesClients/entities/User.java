@@ -8,7 +8,7 @@ import java.util.List;
 
 @Data
 @Entity
-@Table(name = "CustomersTable")
+@Table(name = "CustomersKeycloakTable")
 @Getter
 @Setter
 @NoArgsConstructor
@@ -32,5 +32,5 @@ public class User implements Serializable {
     private String password;
     @Column(name = "roles")
     private List<String> realmRoles;
-    private String targetRealm;
+
 }

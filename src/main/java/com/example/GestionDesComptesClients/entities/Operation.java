@@ -1,34 +1,37 @@
 package com.example.GestionDesComptesClients.entities;
 
 import jakarta.persistence.*;
-import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
-import java.io.Serializable;
-import java.util.Date;
-@Data
-@Setter
-@Getter
+import java.time.LocalDate;
 @Entity
-@Table(name = "operation")
-public abstract class Operation implements Serializable {
-
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+@Table(name = "Operation")
+public class Operation {
     @Id
-    @GeneratedValue
-    @Column(name ="num_operation" )
-    private Long num;
-    @Column(name = "date_operation")
-    private Date dateOperation;
-    @Column(name = "montant")
-    private double montant;
-    @ManyToOne
-    @JoinColumn
-    private Cbank compte;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-    public Operation(Date dateOperation, double montant, Cbank compte) {
-        this.dateOperation = dateOperation;
-        this.montant = montant;
-        this.compte = compte;
-    }
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "sender", referencedColumnName = "rib")
+    private Cbank sender;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "receiver", referencedColumnName = "rib")
+    private Cbank receiver;
+
+    @Column(name = "value", nullable = false)
+    private Double value;
+
+    @Column(name = "Date")
+    private LocalDate dateV;
+    @Column(name = "motif")
+    private String motif;
+
+    @Column(name = "status", nullable = false)
+    private Boolean status;
 }

@@ -13,5 +13,5 @@ import lombok.*;
 public class NumeroCompte {
     @Id
     private String num;
-    private boolean active;
+
 }

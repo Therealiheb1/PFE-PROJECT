@@ -10,7 +10,7 @@ import java.util.List;
 
 @Component
 public class UserMapper {
-    public UserRepresentation mapUserRep(User user){
+    public UserRepresentation mapUserRep(User user) {
         UserRepresentation userRep = new UserRepresentation();
         userRep.setUsername(user.getUsername());
         userRep.setFirstName(user.getFirstName());
@@ -35,6 +35,7 @@ public class UserMapper {
         userRep.setEmail(user.getEmail());
         return userRep;
     }
+
     public UserRepresentation mapUserRepToUpdatePassword(String newPassword){
         UserRepresentation userRep = new UserRepresentation();
         List<CredentialRepresentation> creds = new ArrayList<>();
@@ -46,12 +47,4 @@ public class UserMapper {
         return userRep;
     }
 
-    public User mapUser(UserRepresentation userRep) {
-        User user = new User();
-        user.setUsername(userRep.getUsername());
-        user.setFirstName(userRep.getFirstName());
-        user.setLastName(userRep.getLastName());
-        user.setEmail(userRep.getEmail());
-        return user;
-    }
 }
