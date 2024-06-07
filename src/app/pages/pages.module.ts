@@ -39,7 +39,7 @@ import { ChatComponent } from './chat/chat.component';
 import { FilemanagerComponent } from './filemanager/filemanager.component';
 
 
-FullCalendarModule.registerPlugins([ // register FullCalendar plugins
+FullCalendarModule.registerPlugins([ 
   dayGridPlugin,
   interactionPlugin,
   bootstrapPlugin

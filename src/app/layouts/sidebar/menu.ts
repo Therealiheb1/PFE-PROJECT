@@ -16,7 +16,7 @@ export const MENU: MenuItem[] = [
         },
       
                 label: "Page d'acceuil",
-                link: '/comptes',
+                link: '/dashboard',
                 parentId: 2
             
        
@@ -33,37 +33,14 @@ export const MENU: MenuItem[] = [
     },
 
 
+    
     {
         id: 29,
         
-        icon: 'bx-envelope',
+        icon: 'bx bx-bell',
        
               
-                label: 'gérer compte',
-                link: '/dashboard',
-                parentId: 29
-         
-    },
-
-    
-    
-    
-    {
-        id: 7,
-        isLayout: true
-    },
-    {
-        id: 8,
-       
-        isTitle: true
-    },
-    {
-        id: 29,
-        
-        icon: 'bx-envelope',
-       
-              
-                label: 'MENUITEMS.EMAIL.LIST.INBOX',
+                label: 'notification',
                 link: '/email/inbox',
                 parentId: 29
          
@@ -88,6 +65,28 @@ export const MENU: MenuItem[] = [
             text: 'MENUITEMS.FILEMANAGER.BADGE',
         },
     },
+    {
+        id: 7,
+        isLayout: true
+    },
+    {
+        id: 8,
+       
+        isTitle: true
+    },  
+  
+   
+    {
+        id: 72,
+        
+        icon: 'bx bxs-barcode',
+       
+                
+                label: 'demande de chequier ',
+                link: '/cheque',
+                parentId: 72
+        
+    },
     
     {
         id: 7,
@@ -103,11 +102,11 @@ export const MENU: MenuItem[] = [
     {
         id: 72,
         
-        icon: 'bx-file',
+        icon: 'bx bx-headphone',
        
                 
                 label: 'FAQS / Support',
-                link: '/pages/faqs',
+                link: '/support',
                 parentId: 72
         
     },

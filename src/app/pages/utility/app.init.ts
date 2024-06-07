@@ -3,6 +3,7 @@ import { environment } from './environment';
 
 export function initializeKeycloak(keycloak: KeycloakService): () => Promise<any> {
   return (): Promise<any> => {
+    console.log(environment.keycloak.url + "   " + environment.keycloak.realm + "          " + environment.keycloak.clientId);
     return new Promise(async (resolve, reject) => {
       try {
         await keycloak.init({
@@ -11,16 +12,12 @@ export function initializeKeycloak(keycloak: KeycloakService): () => Promise<any
             realm: environment.keycloak.realm,
             clientId: environment.keycloak.clientId,
           },
-        
-         
-          loadUserProfileAtStartUp: true,
+          // loadUserProfileAtStartUp: true,
           initOptions: {
-      
             onLoad: 'login-required',
             checkLoginIframe: true,
             redirectUri: 'http://localhost:4200/comptes'
           },
-         
           bearerExcludedUrls: ['/assets'],
         });
         resolve(resolve);
@@ -29,6 +26,4 @@ export function initializeKeycloak(keycloak: KeycloakService): () => Promise<any
       }
     });
   };
-  console.log(this.url+"   "+this.realm+"          "+this.clientId);
-  
 }

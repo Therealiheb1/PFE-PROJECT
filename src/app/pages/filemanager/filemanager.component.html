@@ -1,28 +1,32 @@
 <div class="container-fluid">
   <div class="row">
     <div class="col-12">
-      <app-page-title title="File Manager" [breadcrumbItems]="breadCrumbItems"></app-page-title>
+      
     </div>
   </div>
 
   <div class="row mt-4">
     <div class="col-xl-8 offset-xl-2 col-lg-10 offset-lg-1 col-md-12">
       <div class="card">
-        <div class="card-header">Client Information</div>
+        <div class="card-header"></div>
         <div class="card-body">
           <dl class="row mb-4">
-            <dt class="col-sm-3">Full Name:</dt>
-            <dd class="col-sm-9">{{ client.fullName }}</dd>
-            <dt class="col-sm-3">ID Number:</dt>
-            <dd class="col-sm-9">{{ client.idNumber }}</dd>
-            <dt class="col-sm-3">Email:</dt>
-            <dd class="col-sm-9">{{ client.email }}</dd>
-            <dt class="col-sm-3">Date of Account Creation:</dt>
-            <dd class="col-sm-9">{{ client.dateCreated | date }}</dd>
-            <dt class="col-sm-3">RIB:</dt>
-            <dd class="col-sm-9">{{ client.rib }}</dd>
+            <dt class="col-sm-3">Nom</dt>
+            <dd class="col-sm-9">sahbeni</dd>
+            <dt class="col-sm-3">Prenom</dt>
+            <dd class="col-sm-9">iheb</dd>
+            <dt class="col-sm-3">RIB</dt>
+            <dd class="col-sm-9">948013805</dd>
+            <dt class="col-sm-3">Iban</dt>
+            <dd class="col-sm-9">TN59048794801380590</dd>
+            <dt class="col-sm-3">Date de creation</dt>
+            <dd class="col-sm-9">16/04/2024</dd>
+            <dt class="col-sm-3">Type du compte</dt>
+            <dd class="col-sm-9">epargne</dd>
+            <dt class="col-sm-3"></dt>
+            <dd class="col-sm-9"></dd>
           </dl>
-          <button class="btn btn-primary float-end" (click)="downloadInfo()">Download Information</button>
+          <button class="btn btn-primary float-end" (click)="downloadInfo()">Télécharger</button>
         </div>
       </div>
     </div>

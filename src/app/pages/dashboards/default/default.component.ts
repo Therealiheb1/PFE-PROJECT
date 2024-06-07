@@ -1,11 +1,11 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { emailSentBarChart, monthlyEarningChart } from './data';
-import { ChartType } from './dashboard.model';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { EventService } from '../../../core/services/event.service';
-
+// default.component.ts
+import { Component, OnInit, ViewChild, TemplateRef } from '@angular/core';
+import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { ConfigService } from '../../../core/services/config.service';
-
+import { UserService } from 'src/app/core/services/UserService';
+import { ActivatedRoute, Router } from '@angular/router';
+import { TransactionComponent } from 'src/app/transaction/transaction.component';
+import { CustService } from 'src/app/core/services/cust.service';
 
 @Component({
   selector: 'app-default',
@@ -14,83 +14,41 @@ import { ConfigService } from '../../../core/services/config.service';
 })
 export class DefaultComponent implements OnInit {
 
-  isVisible: string;
-
-
-  amount: number = 0;
-  recipientId: string = '';
+  @ViewChild('transactionModal') transactionModal: TemplateRef<any>;
   transactions: Array<[]>;
-  statData: Array<[]>;
+  userInfo: any;
+  selectedRib: string;
+  selectedSolde: number;
 
-  isActive: string;
-
-
-
-
-
-  @ViewChild('content') content;
-  constructor(private modalService: NgbModal, private configService: ConfigService, private eventService: EventService) {
-  }
+  constructor(private activatedRoute: ActivatedRoute, private modalService: NgbModal, private configService: ConfigService, private userService: UserService, private custService: CustService, private router: Router) {}
 
   ngOnInit() {
-
-    /**
-     * horizontal-vertical layput set
-     */
-     const attribute = document.body.getAttribute('data-layout');
-
-     this.isVisible = attribute;
-     const vertical = document.getElementById('layout-vertical');
-     if (vertical != null) {
-       vertical.setAttribute('checked', 'true');
-     }
-     if (attribute == 'horizontal') {
-       const horizontal = document.getElementById('layout-horizontal');
-       if (horizontal != null) {
-         horizontal.setAttribute('checked', 'true');
-         console.log(horizontal);
-       }
-     }
-
-    //  //el modal
-    //  this.openModal() {
-    //   this.modalService.open(this.content, { centered: true });
-    // }
-    // submitTransaction(this.amount: number, this.recipientId: String) {
-    //   //el code
-  
-    //   console.log(`Transaction details: Amount: ${this.amount}, Recipient ID: ${this.recipientId}`);
-  
-
-    //   this.amount = 0;
-    //   this.recipientId = '';
-    // }
-
-    /**
-     * Fetches the data
-     */
     this.fetchData();
-  }
 
-  
-
-  /**
-   * Fetches the data
-   */
-  private fetchData() {
-  
-
-    this.isActive = 'year';
-    this.configService.getConfig().subscribe(data => {
-      this.transactions = data.transactions;
-  
+    this.activatedRoute.queryParams.subscribe(params => {
+      const selectedRib = params['rib'];
+      if (selectedRib) {
+        this.fetchAccountBalance(selectedRib);
+      }
     });
   }
 
-  openModal() {
-    this.modalService.open(this.content, { centered: true });
+  private fetchData() {
+    this.configService.getConfig().subscribe(data => {
+      this.transactions = data.transactions;
+    });
   }
-   changeLayout(layout: string) {
-    this.eventService.broadcast('changeLayout', layout);
+
+  openTransactionModal() {
+    const modalRef: NgbModalRef = this.modalService.open(TransactionComponent, { centered: true, size: 'lg' });
+  }
+  navigateToComptes() {
+    this.router.navigate(['/comptes']); 
+  }
+  fetchAccountBalance(rib: string): void {
+    this.custService.getAccountBalance(rib).subscribe(balance => {
+      this.selectedRib = rib;
+      this.selectedSolde = balance;
+    });
   }
 }

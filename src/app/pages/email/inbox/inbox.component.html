@@ -1,87 +1,114 @@
-<div class="container-fluid">
-  <app-page-title title="Inbox" [breadcrumbItems]="breadCrumbItems"></app-page-title>
-  <div class="row">
-    <div class="col-12">
-      <div class="email-leftbar card">
+<div class="table-responsive mb-0">
+  <table class="table table-centered table-nowrap">
+    <thead class="table-light">
+      <tr>
        
-        <div class="mail-list mt-4">
-          <a href="javascript: void(0);" class="active"><i class="mdi mdi-email-outline me-2"></i> Inbox <span
-              class="ms-1 float-end">(18)</span></a>
+       
+        <th class="align-middle">à</th>
+        <th class="align-middle">Date</th>
+        <th class="align-middle">Montant</th>
+        <th></th>
         
-        </div>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>25414785</td>
+        <td>08/05/2024</td>
+        <td>400</td>
+        <td><button class="btn btn-primary" >Afficher les détails</button></td>
+    </tr>
+    <tr>
+        <td>54789654</td>
+        <td>08/05/2024</td>
+        <td>380</td>
+        <td><button class="btn btn-primary" >Afficher les détails</button></td>
+    </tr>
+    <tr>
+        <td>99880321</td>
+        <td>08/05/2024</td>
+        <td>384</td>
+        <td><button class="btn btn-primary" >Afficher les détails</button></td>
+    </tr>
+    <tr>
+        <td>25414526</td>
+        <td>08/05/2024</td>
+        <td>412</td>
+        <td><button class="btn btn-primary" >Afficher les détails</button></td>
+    </tr>
+    <tr>
+        <td>25414178</td>
+        <td>08/05/2024</td>
+        <td>404</td>
+        <td><button class="btn btn-primary" >Afficher les détails</button></td>
+    </tr>
+    <tr>
+        <td>54447799</td>
+        <td>08/05/2024</td>
+        <td>392</td>
+        <td><button class="btn btn-primary" >Afficher les détails</button></td>
+    </tr>
+    <tr>
+      <td>20201047</td>
+      <td>08/05/2024</td>
+      <td>784</td>
+      <td><button class="btn btn-primary" >Afficher les détails</button></td>
+  </tr>
+  <tr>
+    <td>95784632</td>
+    <td>08/05/2024</td>
+    <td>100</td>
+    <td><button class="btn btn-primary" >Afficher les détails</button></td>
+</tr>
+<tr>
+  <td>21478996</td>
+  <td>08/05/2024</td>
+  <td>10</td>
+  <td><button class="btn btn-primary" >Afficher les détails</button></td>
+</tr>
+      
+    </tbody>
+  </table>
 
-        <ng-template #content let-modal>
-          <div class="modal-header">
-            <h5 class="modal-title" id="composemodalTitle">New Message</h5>
-            <button type="button" class="btn-close" (click)="modal.dismiss('Cross click')" aria-label="Close">
-
-            </button>
-          </div>
-          <div class="modal-body">
-            <form>
-              <div class="mb-3">
-                <input type="email" class="form-control" placeholder="To">
-              </div>
-              <div class="mb-3">
-                <input type="text" class="form-control" placeholder="Subject">
-              </div>
-              <div class="mb-3">
-                <ckeditor [editor]="Editor" data="<p>Content of the editor.</p>"></ckeditor>
-              </div>
-            </form>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" (click)="modal.close('Close click')">Close</button>
-            <button type="button" class="btn btn-primary">Send <i class="fab fa-telegram-plane ms-1"></i></button>
-          </div>
-        </ng-template>
-      </div>
-
-      <div class="email-rightbar mb-3">
-
-        <div class="card">
-          <div class="btn-toolbar p-3" role="toolbar">
-            <div class="btn-group me-2 mb-2 mb-sm-0">
-              
-              <button type="button" (click)="confirm()" class="btn btn-primary"><i
-                  class="far fa-trash-alt"></i></button>
-            </div>
-            
-           
-          </div>
-
-          <ul class="message-list">
-            <li class="unread" *ngFor="let email of emailData | slice:0:15; let i = index; "
-              [ngClass]="{ 'unread': email.unread === true }">
-              <div class="col-mail col-mail-1">
-                <div class="checkbox-wrapper-mail">
-                  <input type="checkbox" id="chk-{{i}}" (change)="selectMail($event,email.id)" />
-                  <label for="chk-{{i}}"></label>
+  <ng-template #content role="document" let-modal>
+    <div class="modal-header">
+      <h5 class="modal-title mt-0">Order Details</h5>
+      <button type="button" class="btn-close" aria-hidden="true" (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <div class="modal-body">
+      <p class="mb-2">
+        Transaction id:
+        <span class="text-primary">#SK2540</span>
+      </p>
+      <p class="mb-4">
+        From:
+        <span class="text-primary">Neal Matthews</span>
+      </p>
+      <div class="table-responsive">
+        <table class="table table-centered table-nowrap">
+          <thead>
+            <tr>
+              <th scope="col">To</th>
+              <th scope="col">in</th>
+              <th scope="col">Transaction id</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th >
+                <div>
+                  <p>iheb sahbeni (ihebsahbeni00@gmail.com)</p>
                 </div>
-                <a [routerLink]="['../read',email.id]" class="title">{{email.title}}</a>
-                <span class="star-toggle far fa-star"></span>
-              </div>
-              <div class="col-mail col-mail-2">
-                <a [routerLink]="['../read',email.id]" class="subject">{{email.subject}}</a>
-                <div class="date">{{email.date}}</div>
-              </div>
-            </li>
-          </ul>
-        </div>
-        <div class="row justify-content-md-between align-items-md-center">
-          <div class="col-7">
-            Showing {{startIndex}} - {{endIndex}} of {{totalRecords}}
-          </div> <!-- end col-->
-          <div class="col-5">
-            <div class="text-md-right float-md-end mt-2">
-              <ngb-pagination class="pagination-rounded" [collectionSize]="totalRecords"
-                (pageChange)="onPageChange($event)" [(page)]="page" [pageSize]="pageSize">
-              </ngb-pagination>
-              <!--Pagination-->
-            </div>
-          </div> <!-- end col-->
-        </div>
+              </th>
+              <td>
+                <div>
+                  <p>07 Oct,2023</p>
+                </div>
+              </td>
+              <td>#SK2540</td>
+            </tr>
+           
+          </tbody>
+        </table>
       </div>
     </div>
-  </div>
-</div>

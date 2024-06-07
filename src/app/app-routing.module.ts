@@ -6,7 +6,7 @@ import { LayoutComponent } from './layouts/layout.component';
 import { CyptolandingComponent } from './cyptolanding/cyptolanding.component';
 import { Page404Component } from './extrapages/page404/page404.component';
 import { AccessDeniedComponent } from './access-denied/access-denied.component';
-import { AdminComponent } from './admin/admin.component';
+
 import { CustomerComponent } from './customer/customer.component';
 
 const routes: Routes = [

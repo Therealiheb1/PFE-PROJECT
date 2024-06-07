@@ -3,26 +3,24 @@
     <thead class="table-light">
       <tr>
        
-        <th class="align-middle">Order ID</th>
-        <th class="align-middle">Billing Name</th>
+       
+        <th class="align-middle">à</th>
         <th class="align-middle">Date</th>
-        <th class="align-middle">Amount</th>
-        <th class="align-middle">View Details</th>
+        <th class="align-middle">Montant</th>
+        <th class="align-middle">
+          Voir les détails</th>
       </tr>
     </thead>
     <tbody>
       <tr *ngFor="let data of transactions">
         
-        <td>
-          <a href="javascript: void(0);" class="text-body fw-bold">{{data.id}}</a>
-        </td>
-        <td>{{data.name}}</td>
+        
+        <td>{{data.iname}}</td>
         <td>{{data.date}}</td>
         <td>{{data.total}}</td>
         <td>
           <!-- Button trigger modal -->
-          <button type="button" class="btn btn-primary btn-sm btn-rounded" (click)="openModal(content)">View
-            Details</button>
+          <button type="button" class="btn btn-primary btn-sm btn-rounded" (click)="openModal(content)">Afficher les détails</button>
         </td>
       </tr>
     </tbody>

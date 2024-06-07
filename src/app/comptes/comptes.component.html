@@ -1,22 +1,21 @@
 <div class="table-responsive mb-0">
-         
-    <table class="table table-centered table-nowrap">
-      <thead class="table-light">
-        <tr>
-         
-          <th class="align-middle">Nom</th>
-          <th class="align-middle">Prénom</th>
-          <th class="align-middle">Date</th>
-          <th class="align-middle">Solde</th>
-          <th class="align-middle"></th>
-        </tr>
-      </thead>
-      <tbody>
-     
-        
-      </tbody>
-    </table>
-    <pagination-controls (pageChange)="handlePageChange($event)" previousLabel="Previous" nextLabel="Next"></pagination-controls>
-  </div>
- 
-  <!-- end table -->
+  <table class="table table-centered table-nowrap">
+    <thead class="table-light">
+      <tr>
+        <th class="align-middle">Rib</th>
+        <th class="align-middle">Iban</th>
+        <th class="align-middle">Solde</th>
+        <th class="align-middle"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let account of userAccounts">
+        <td>{{ account.rib }}</td>
+        <td>{{ account.iban }}</td>
+        <td>{{ account.solde }}</td>
+        <td><button class="btn btn-primary" (click)="navigateToDefault(account.rib)">Accéder</button></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+</div>

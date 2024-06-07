@@ -1,0 +1,14 @@
+<div class="d-flex justify-content-center align-items-center vh-100">
+  <form (ngSubmit)="transferFunds()" class="w-50 p-4 border rounded shadow-sm bg-white">
+
+    <div class="form-group">
+      <label for="receiverRib">RIB du destinataire :</label>
+      <input type="text" id="receiverRib" [(ngModel)]="receiverRib" name="receiverRib" class="form-control" required>
+    </div>
+    <div class="form-group">
+      <label for="value">Montant :</label>
+      <input type="number" id="value" [(ngModel)]="value" name="value" class="form-control" required>
+    </div>
+    <button type="submit" class="btn btn-primary btn-block">Transférer</button>
+  </form>
+</div>

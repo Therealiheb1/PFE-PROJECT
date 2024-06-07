@@ -1,0 +1,26 @@
+<div class="container">
+    <div class="stepper">
+      <span><h2>Statue : {{chequeStatus}}</h2></span>
+        
+        
+     
+    </div>
+    
+    <div class="content">
+      
+     
+        <form [formGroup]="requestForm" (ngSubmit)="submit()">
+          
+          <button type="submit"  class="btn btn-primary">Demander</button>
+        </form>
+     
+      
+
+        
+      <!-- <div *ngIf="currentStep === 3">
+       
+        Félicitations! Votre demande est finalisée.
+      </div> -->
+    </div>
+  </div>
+  

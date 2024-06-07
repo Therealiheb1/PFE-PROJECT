@@ -93,49 +93,49 @@ const monthlyEarningChart: ChartType = {
 const transactions = [
     {
         id: '#SK2540',
-        name: 'Neal Matthews',
-        date: '07 Oct, 2019',
-        total: '$400',
+        name: '25414785',
+        date: '08/05/2024',
+        total: '400',
        
         index: 1
     },
     {
         id: '#SK2541',
-        name: 'Jamal Burnett',
-        date: '07 Oct, 2019',
-        total: '$380',
+        name: '54789654',
+        date: '08/05/2024',
+        total: '380',
        
         index: 2
     },
     {
         id: '#SK2542',
-        name: 'Juan Mitchell',
-        date: '06 Oct, 2019',
-        total: '$384',
+        name: '58744446',
+        date: '08/05/2024',
+        total: '384',
      
         index: 3
     },
     {
         id: '#SK2543',
-        name: 'Barry Dick',
-        date: '05 Oct, 2019',
-        total: '$412',
+        name: '25414526',
+        date: '08/05/2024',
+        total: '412',
        
         index: 4
     },
     {
         id: '#SK2544',
-        name: 'Ronald Taylor',
-        date: '04 Oct, 2019',
-        total: '$404',
+        name: '25414178',
+        date: '08/05/2024',
+        total: '404',
     
         index: 5
     },
     {
         id: '#SK2545',
-        name: 'Jacob Hunter',
-        date: '04 Oct, 2019',
-        total: '$392',
+        name: '25414487',
+        date: '08/05/2024',
+        total: '392',
        
         index: 6
     }

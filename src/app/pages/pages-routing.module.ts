@@ -7,20 +7,23 @@ import { ChatComponent } from './chat/chat.component';
 import { DefaultComponent } from './dashboards/default/default.component';
 import { FilemanagerComponent } from './filemanager/filemanager.component';
 import { ComptesComponent } from '../comptes/comptes.component';
-import { AdminPannelComponent } from '../admin-pannel/admin-pannel.component';
-import { AddUserComponent } from '../add-user/add-user.component';
+import { TransactionComponent } from '../transaction/transaction.component';
+
+import { ChequeComponent } from '../cheque/cheque.component';
+import { SupportComponent } from '../support/support.component';
 
 
 
 const routes: Routes = [
-  { path: '', redirectTo: 'Admin' },
-//  admin
+  { path: '', redirectTo: 'dashboard' },
+
   { path: 'dashboard', component: DefaultComponent },
+  { path: 'transaction', component: TransactionComponent },
   { path: 'comptes', component: ComptesComponent },
-  { path: 'Admin', component: AdminPannelComponent },
+  { path: 'support', component: SupportComponent },
   { path: 'calendar', component: CalendarComponent },
   { path: 'chat', component: ChatComponent },
-  { path: 'adduser', component:AddUserComponent },
+  { path: 'cheque', component:ChequeComponent },
   { path: 'filemanager', component: FilemanagerComponent },
   { path: 'dashboards', loadChildren: () => import('./dashboards/dashboards.module').then(m => m.DashboardsModule) },
   { path: 'ecommerce', loadChildren: () => import('./ecommerce/ecommerce.module').then(m => m.EcommerceModule) },

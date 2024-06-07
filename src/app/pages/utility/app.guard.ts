@@ -6,44 +6,84 @@ import {
 } from '@angular/router';
 import { KeycloakAuthGuard, KeycloakService } from 'keycloak-angular';
 
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable()
 export class AuthGuard extends KeycloakAuthGuard {
   constructor(
-    protected readonly router: Router,
-    protected readonly keycloak: KeycloakService
+
+    protected router: Router,
+
+    protected keycloakAngular: KeycloakService
+
   ) {
-    super(router, keycloak);
+
+    super(router, keycloakAngular);
+
   }
 
-  public async isAccessAllowed(
+ 
+
+  isAccessAllowed(
+
     route: ActivatedRouteSnapshot,
+
     state: RouterStateSnapshot
-  ) {
-    // Force the user to log in if currently unauthenticated.
-    if (!this.authenticated) {
-      await this.keycloak.login({
-        redirectUri: 'http://localhost:4200'
-      }); 
-    }
 
-    // Get the roles required from the route.
-    const requiredRoles = route.data.roles;
+  ): Promise<boolean> {
 
-    // Allow the user to to proceed if no additional roles are required to access the route.
-    if (!(requiredRoles instanceof Array) || requiredRoles.length === 0) {
-      return true;
-    }
+    return new Promise((resolve, reject) => {
 
-    // Allow the user to proceed if all the required roles are present.
-    if (requiredRoles.every((role) => this.roles.includes(role))) {
-      return true;
-    // } else {
-    //   // redirect to error page if the user doesn't have the nessecairy  role to access
-    //   // we will define this routes in a bit
-    //   this.router.navigate(['access-denied']);
-    //   return false;
-    }
+    let permission;
+
+      if (!this.authenticated) {
+
+        this.keycloakAngular.login().catch((e) => console.error(e));
+
+        return reject(false);
+
+      }
+
+     
+
+     
+
+      const requiredRoles: string[] = route.data.roles;
+
+      if (!requiredRoles || requiredRoles.length === 0) {
+
+        permission = true;
+
+      } else {
+
+        if (!this.roles || this.roles.length === 0) {
+
+        permission = false
+
+        }
+
+        if (requiredRoles.includes(this.roles[0]))
+
+        {
+
+            permission=true;
+
+        } else {
+
+            permission=false;
+
+        };
+
+      }
+
+      if(!permission){
+
+          this.router.navigate(['/']);
+
+      }
+
+      resolve(permission)
+
+    });
+
   }
+
 }

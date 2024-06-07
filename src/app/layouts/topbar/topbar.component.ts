@@ -91,11 +91,7 @@ export class TopbarComponent implements OnInit {
   /**
    * Logout the user
    */
-  logout() {
-
-    this.router.navigate(['']);
-  }
-
+ 
 
   private initializeUserOptions(): void {
     this.user = this.keycloakService.getUsername();
@@ -140,4 +136,11 @@ export class TopbarComponent implements OnInit {
       }
     }
   }
+
+  logout() {
+    window.location.href = "http://localhost:8080/realms/ABT_Realm/protocol/openid-connect/logout";
+  }
+
 }
+
+

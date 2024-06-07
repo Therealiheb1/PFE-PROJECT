@@ -1,77 +1,62 @@
 {
   "transactions": [{
-      "id": "#SK2540",
-      "name": "Neal Matthews",
-      "date": "07 Oct, 2019",
-      "total": "$400",
-   
-      "index": 1
+        "id": "#SK2540",
+        "iname": "25414785",
+        "date": "08/05/2024",
+        "total": "400",
+       
+        "index": 1
     },
     {
-      "id": "#SK2541",
-      "name": "Jamal Burnett",
-      "date": "07 Oct, 2019",
-      "total": "$380",
+        "id": "#SK2541",
+        "iname": "54789654",
+        "date": "08/05/2024",
+        "total": "380",
+       
+        "index": 2
+    },
+    {
+        "id": "#SK2542",
+        "iname": "54777700",
+        "date": "08/05/2024",
+        "total": "384",
+     
+        "index": 3
+    },
+    {
+        "id": "#SK2543",
+        "iname": "25414526",
+        "date": "08/05/2024",
+        "total": "412",
+       
+        "index": 4
+    },
+    {
+        "id": "#SK2544",
+        "iname": "25414178",
+        "date": "08/05/2024",
+        "total": "404",
     
-      "index": 2
+        "index": 5
     },
     {
-      "id": "#SK2542",
-      "name": "Juan Mitchell",
-      "date": "06 Oct, 2019",
-      "total": "$384",
-     
-      "index": 3
-    },
-    {
-      "id": "#SK2543",
-      "name": "Barry Dick",
-      "date": "05 Oct, 2019",
-      "total": "$412",
-     
-      "index": 4
-    },
-    {
-      "id": "#SK2544",
-      "name": "Ronald Taylor",
-      "date": "04 Oct, 2019",
-      "total": "$404",
-     
-      "index": 5
-    },
-    {
-      "id": "#SK2545",
-      "name": "Jacob Hunter",
-      "date": "04 Oct, 2019",
-      "total": "$392",
-    
-      "index": 6
-    }
-  ],
-
-  "statData": [{
-    "icon": "bx bx-copy-alt",
-    "title": "Orders",
-    "value": "1,235"
-  }, {
-    "icon": "bx bx-archive-in",
-    "title": "Revenue",
-    "value": "$35, 723"
-  }, {
-    "icon": "bx bx-purchase-tag-alt",
-    "title": "Average Price",
-    "value": "$16.2"
-  }],
+        "id": "#SK2545",
+        "iname": "25414487",
+        "date": "08/05/2024",
+        "total": "392",
+       
+        "index": 6
+    }],
 
   "sassEarning": [{
-    "name": "This month",
+    "iname": "This month",
     "amount": "$2453.35",
     "revenue": "0.4",
     "time": "From previous period",
     "month": "Last month",
     "previousamount": "$2281.04",
     "series": [{
-      "name": "series1",
+      "iname": "series1",
       "data": [31, 40, 36, 51, 49, 72, 69, 56, 68, 82, 68, 76]
     }]
   }],
@@ -81,19 +66,19 @@
     "amount": "$ 6385",
     "revenue": "0.6",
     "list": [{
-        "name": "Product A",
+        "iname": "Product A",
         "text": "Neque quis est",
         "sales": 37,
         "chartVariant": "#556ee6"
       },
       {
-        "name": "Product B",
+        "iname": "Product B",
         "text": "Quis autem iure",
         "sales": 72,
         "chartVariant": "#34c38f"
       },
       {
-        "name": "Product C",
+        "iname": "Product C",
         "text": "Sed aliquam mauris.",
         "sales": 54,
         "chartVariant": "#f46a6a"

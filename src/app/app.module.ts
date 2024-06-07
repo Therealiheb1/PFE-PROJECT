@@ -38,15 +38,21 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { UsersListComponent } from './users-list/users-list.component';
 import * as Keycloak from 'keycloak-js';
 import { AdmincComponent } from './adminc/adminc.component';
+import { ChequeComponent } from './cheque/cheque.component';
+import { FormsModule } from '@angular/forms';
+import { TransactionComponent } from './transaction/transaction.component';
+import { SupportComponent } from './support/support.component';
+import { AuthGuard } from './pages/utility/app.guard';
 // import { initializeKeycloak } from './pages/utility/app.init';
 
+const keycloakServiceRealm1 = new KeycloakService();
+const keycloakServiceRealm2 = new KeycloakService();
+const fullUrl = window.location.href;
+const baseUrl = fullUrl.split('/')[2];
 
-
-
-  
-function initializeKeycloak(keycloak: KeycloakService) {
-  return () =>
-    keycloak.init({
+export function initializeKeycloak(keycloak: KeycloakService) {
+  return () => {
+    return keycloak.init({
       config: {
         url: 'http://localhost:8080',
         realm: 'ABT_Realm',
@@ -55,17 +61,15 @@ function initializeKeycloak(keycloak: KeycloakService) {
       loadUserProfileAtStartUp: true,
       initOptions: {
         onLoad: 'login-required',
-        redirectUri: 'http://localhost:4200/',
+        redirectUri: 'http://localhost:4200/comptes',
         promiseType: 'native'
       }
-    }).then(() => {
-      if (keycloak.isLoggedIn() && keycloak.isUserInRole('Role_admin')) {
-        window.location.href = 'http://localhost:4200/Admin';
-      }
     });
+  };
 }
 
 
+console.log("*** V *** :"+window.location.href +"    ********************   " +baseUrl+"   +++++++++++ PORT +++++++++++  "+window.location.port) 
 
 
 export function createTranslateLoader(http: HttpClient): any {
@@ -83,6 +87,9 @@ export function createTranslateLoader(http: HttpClient): any {
 
       UsersListComponent,
         AdmincComponent,
+        ChequeComponent,
+        TransactionComponent,
+        SupportComponent,
       
     
   ],
@@ -90,7 +97,7 @@ export function createTranslateLoader(http: HttpClient): any {
     NgxPaginationModule,
     BrowserModule,
     ReactiveFormsModule,
-    //error 1
+    FormsModule,
    KeycloakAngularModule,
     BrowserAnimationsModule,
     HttpClientModule,
@@ -123,7 +130,7 @@ export function createTranslateLoader(http: HttpClient): any {
       multi: true,
       deps: [KeycloakService]
     }, 
-
+AuthGuard
 
     // { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     // { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
